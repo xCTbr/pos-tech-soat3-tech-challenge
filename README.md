@@ -1,1 +1,5 @@
-# pos-tech-soat3-tech-challenge
+# PÓS-TECH SOAT3 TECH CHALLENGE
+
+### Turma: 3SOAT
+
+### Grupo 2
