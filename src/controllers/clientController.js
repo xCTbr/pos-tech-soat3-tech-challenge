@@ -1,11 +1,11 @@
-import { client } from '../models/Client';
+import { customer } from '../models/Customer';
 
-class ClientController {
+class CustomerController {
 	
-	static async listClients(req, res) {
+	static async listCustomers(req, res) {
 		try {
-			const clientList = await client;
-			res.status(200).json(clientList);
+			const customerList = await customer;
+			res.status(200).json(customerList);
 		} catch (error) {
 			res.status(500).json({
 				message: `${error.message} - Request failed`
@@ -13,11 +13,11 @@ class ClientController {
 		}
 	};
 
-	static async getClientById(req, res) {
+	static async getCustomerById(req, res) {
 		try {
 			const id = req.params.id;
-			const clientFound = await client.findById(id);
-			res.status(200).json(clientFound);
+			const customerFound = await customer.findById(id);
+			res.status(200).json(customerFound);
 		} catch (error) {
 			res.status(500).json({
 				message: `${error.message} - Request failed`
@@ -25,12 +25,12 @@ class ClientController {
 		}
 	};
 
-	static async createClient(req, res) {
+	static async createCustomer(req, res) {
 		try {
-			const newClient = await client.create(req.body);
+			const newCustomer = await customer.create(req.body);
 			res.status(201).json({
 				message: 'Customer created successfully',
-				client: newClient
+				customer: newCustomer
 			});
 		} catch (error) {
 			res.status(500).json({
@@ -39,10 +39,10 @@ class ClientController {
 		}
 	};
 
-	static async updateClient(req, res) {
+	static async updateCustomer(req, res) {
 		try {
 			const id = req.params.id;
-			await client.findByIdAndUpdate(id, req.body);
+			await customer.findByIdAndUpdate(id, req.body);
 			res.status(200).json({message: 'Customer updated successfully'});
 		} catch (error) {
 			res.status(500).json({
@@ -51,10 +51,10 @@ class ClientController {
 		}
 	};
 
-	static async deleteClient(req, res) {
+	static async deleteCustomer(req, res) {
 		try {
 			const id = req.params.id;
-			await client.findByIdAndDelete(id);
+			await customer.findByIdAndDelete(id);
 			res.status(200).json({message: 'Customer deleted successfully'});
 		} catch (error) {
 			res.status(500).json({
@@ -64,4 +64,4 @@ class ClientController {
 	};
 };
 
-export default ClientController;
+export default CustomerController;

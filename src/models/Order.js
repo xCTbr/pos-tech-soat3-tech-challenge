@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import { productSchema } from './Product';
-import { clientSchema } from './Client';
+import { customerSchema } from './Customer';
 import { statusSchema } from './Status';
 
 const orderSchema = new mongoose.Schema(
 	{
 		id: {type: String},
 		orderNumber: {type: Number, required: true},
-		client: clientSchema,
+		customer: customerSchema,
 		orderProducts: [productSchema],
 		totalOrderPrice: {type: Double, required: true},
 		orderStatus: statusSchema,
