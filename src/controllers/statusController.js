@@ -4,7 +4,7 @@ class StatusController {
 	
 	static async listStatuss(req, res) {
 		try {
-			const statusList = await status;
+			const statusList = await status.find();
 			res.status(200).json(statusList);
 		} catch (error) {
 			res.status(500).json({

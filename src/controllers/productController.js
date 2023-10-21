@@ -4,7 +4,7 @@ class ProductController {
 	
 	static async listProducts(req, res) {
 		try {
-			const productList = await product;
+			const productList = await product.find();
 			res.status(200).json(productList);
 		} catch (error) {
 			res.status(500).json({

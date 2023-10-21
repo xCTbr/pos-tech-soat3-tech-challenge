@@ -4,4 +4,17 @@
 
 ### Grupo 2
 
-### Teste
+
+### Setup do projeto
+-Instalar NPM 
+```
+npm i
+```
+
+-Criar Arquivo .env local com a string de conexão com o mongoose
+
+
+```
+npm run dev
+```
+Iniciar o servidor http://localhost:3000

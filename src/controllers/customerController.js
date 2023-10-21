@@ -4,7 +4,7 @@ class CustomerController {
 	
 	static async listCustomers(req, res) {
 		try {
-			const customerList = await customer;
+			const customerList = await customer.find();
 			res.status(200).json(customerList);
 		} catch (error) {
 			res.status(500).json({
