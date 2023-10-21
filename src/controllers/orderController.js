@@ -1,4 +1,4 @@
-import order from "../models/Order";
+import order from "../models/Order.js";
 
 class OrderController {
 	

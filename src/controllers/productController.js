@@ -1,4 +1,4 @@
-import { product } from "../models/Product";
+import { product } from "../models/Product.js";
 
 class ProductController {
 	

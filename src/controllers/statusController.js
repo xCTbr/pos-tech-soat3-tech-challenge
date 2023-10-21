@@ -1,4 +1,4 @@
-import { status } from "../models/Status";
+import { status } from "../models/Status.js";
 
 class StatusController {
 	
