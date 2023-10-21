@@ -2,12 +2,11 @@
   "name": "pos-tech-soat3-tech-challenge",
   "version": "1.0.0",
   "description": "### Turma: 3SOAT",
-  "main": "server.js",
-	"type": "module",
-
+  "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +15,7 @@
     "nodemon": "^3.0.1"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.6.3"
   }

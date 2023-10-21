@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { categorySchema } from "./Category";
+import { categorySchema } from "./Category.js";
 
 const productSchema = new mongoose.Schema(
     {
@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema(
 			productName: {type: String, required: true},
 			category: categorySchema,
 			quantity: {type: Number, required: true},
-			price: {type: Double, required: true},
+			price: {type: Number, required: true},
 			createdBy: {type: String, required: true},
 			updatedBy: {type: String, required: true},
     },

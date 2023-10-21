@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { productSchema } from './Product';
-import { customerSchema } from './Customer';
-import { statusSchema } from './Status';
+import { productSchema } from './Product.js';
+import { customerSchema } from './Customer.js';
+import { statusSchema } from './Status.js';
 
 const orderSchema = new mongoose.Schema(
 	{
@@ -9,7 +9,7 @@ const orderSchema = new mongoose.Schema(
 		orderNumber: {type: Number, required: true},
 		customer: customerSchema,
 		orderProducts: [productSchema],
-		totalOrderPrice: {type: Double, required: true},
+		totalOrderPrice: {type: Number, required: true},
 		orderStatus: statusSchema,
 		createdBy: {type: String, required: true},
 		updatedBy: {type: String, required: true},
