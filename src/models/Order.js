@@ -7,12 +7,11 @@ const orderSchema = new mongoose.Schema(
 	{
 		id: {type: String},
 		orderNumber: {type: Number, required: true},
-		customer: customerSchema,
-		orderProducts: [productSchema],
+		customer: {type: mongoose.Schema.Types.ObjectId, ref:'customers', required: true},
+		//orderProducts: {type : Array , "default":{type: mongoose.Schema.Types.ObjectId, ref:'product'},
+		orderProducts: {type: Array, "":[mongoose.Schema.Types.ObjectId], ref: 'products'},
 		totalOrderPrice: {type: Number, required: true},
-		orderStatus: statusSchema,
-		createdBy: {type: String, required: true},
-		updatedBy: {type: String, required: true},
+		orderStatus: {type: mongoose.Schema.Types.ObjectId, ref:'status', required: true}
 	},
 	{
 		timestamps: { 

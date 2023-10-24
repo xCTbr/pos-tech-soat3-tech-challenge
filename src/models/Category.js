@@ -4,9 +4,7 @@ const categorySchema = new mongoose.Schema(
 	{
 		id: {type: String},
 		categoryName: {type: String, required: true},
-		description: {type: String, required: true},
-		createdBy: {type: String, required: true},
-		updatedBy: {type: String, required: true},
+		description: {type: String, required: true}
 	},
 	{
 		timestamps: { 
