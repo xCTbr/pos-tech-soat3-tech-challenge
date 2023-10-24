@@ -1,25 +1,41 @@
 # PÓS-TECH SOAT3 TECH CHALLENGE
 
-### Turma: 3SOAT
+API Sistema de pedidos 'Totem de autoatendimento'
 
-### Grupo 2
+## Setup
+- Instalar NPM 
 
-
-### Setup do projeto
--Instalar NPM 
-```
+```bash
 npm i
 ```
 
--Criar Arquivo .env local com a string de conexão com o mongoose
-
-Atualizar documentação do swagger antes de iniciar o servidor
-
+- Criar Arquivo .env local com a string de conexão com o mongoose
+```bash
+DB_CONNECTION_STRING="mongodb+srv://user:password@your_mongo_db_connection_string"
 ```
+
+- Atualizar documentação do swagger antes de iniciar o servidor
+
+```bash
 npm run doc
 ```
+## Running project
 
-```
+```bash
 npm run dev
 ```
-Iniciar o servidor http://localhost:3000
+
+Swagger UI: http://localhost:3000/doc
+
+
+## Team
+ - Turma: 3SOAT
+ - Grupo: 2
+
+    [Bruna Carlota](brunacarlota@gmail.com)
+
+    [Carlos Tofoli](henrique.tofoli@hotmail.com)
+
+    [Giulliana Munhoz](giullianamunhoz9@gmail.com)
+
+    [Valdeir Jesus](valdeir_014@hotmail.com)
