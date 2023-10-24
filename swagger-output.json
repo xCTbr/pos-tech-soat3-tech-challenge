@@ -1,0 +1,823 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Sistema de pedidos",
+    "description": "Pos-Tech 3SOAT",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/customer": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get all customers.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to add a customer.",
+        "parameters": [
+          {
+            "name": "newCustomer",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/customer/cpf": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get customer by CPF.",
+        "parameters": [
+          {
+            "name": "CPF",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/customer/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateCustomer",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to delete customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to list all categories.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to add category.",
+        "parameters": [
+          {
+            "name": "newCategory",
+            "in": "body",
+            "description": "Information category.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to get category by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateCategory",
+            "in": "body",
+            "description": "Information do category.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to delete category by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get all products.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to add product.",
+        "parameters": [
+          {
+            "name": "newProduct",
+            "in": "body",
+            "description": "Information product.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to update product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateProduct",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to delete product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/order": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to list all orders.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to create a order.",
+        "parameters": [
+          {
+            "name": "createOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrder"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/order/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to get order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to update order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to delete order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "tags": [
+          "Order Status"
+        ],
+        "description": "Endpoint to list all Orders Status.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Order Status"
+        ],
+        "description": "Endpoint to create Orders Status.",
+        "parameters": [
+          {
+            "name": "createOrderStatus",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrderStatus"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/status/{id}": {
+      "get": {
+        "tags": [
+          "Order Status"
+        ],
+        "description": "Endpoint to list all Orders Status by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Order Status"
+        ],
+        "description": "Endpoint to update Orders Status.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "createOrderStatus",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrderStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Order Status"
+        ],
+        "description": "Endpoint to delete Orders Status.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Parents": {
+      "type": "object",
+      "properties": {
+        "father": {
+          "type": "string",
+          "example": "Simon Doe"
+        },
+        "mother": {
+          "type": "string",
+          "example": "Marie Doe"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "age": {
+          "type": "number",
+          "example": 29
+        },
+        "parents": {
+          "$ref": "#/definitions/Parents"
+        },
+        "diplomas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "school": {
+                "type": "string",
+                "example": "XYZ University"
+              },
+              "year": {
+                "type": "number",
+                "example": 2020
+              },
+              "completed": {
+                "type": "boolean",
+                "example": true
+              },
+              "internship": {
+                "type": "object",
+                "properties": {
+                  "hours": {
+                    "type": "number",
+                    "example": 290
+                  },
+                  "location": {
+                    "type": "string",
+                    "example": "XYZ Company"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddCustomer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "cpf": {
+          "type": "string",
+          "example": "123.456.789-x"
+        },
+        "email": {
+          "type": "string",
+          "example": "jhon@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "55119978654321"
+        }
+      },
+      "required": [
+        "name",
+        "cpf",
+        "email",
+        "phone"
+      ]
+    },
+    "AddCategory": {
+      "type": "object",
+      "properties": {
+        "categoryName": {
+          "type": "string",
+          "example": "Category A"
+        },
+        "description": {
+          "type": "string",
+          "example": "Category description"
+        }
+      },
+      "required": [
+        "categoryName",
+        "description"
+      ]
+    },
+    "AddProduct": {
+      "type": "object",
+      "properties": {
+        "productName": {
+          "type": "string",
+          "example": "Product A"
+        },
+        "category": {
+          "type": "string",
+          "example": "ID Category"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 10
+        },
+        "price": {
+          "type": "number",
+          "example": 10
+        }
+      },
+      "required": [
+        "productName",
+        "category",
+        "quantity",
+        "price"
+      ]
+    },
+    "AddOrder": {
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string",
+          "example": "1"
+        },
+        "customer": {
+          "type": "string",
+          "example": "ID Customer"
+        },
+        "orderProducts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productID": {
+                "type": "string",
+                "example": "ID product"
+              }
+            }
+          }
+        },
+        "totalOrderPrice": {
+          "type": "number",
+          "example": 10
+        },
+        "orderStatus": {
+          "type": "string",
+          "example": "ID Status"
+        }
+      },
+      "required": [
+        "orderNumber",
+        "customer",
+        "orderProducts",
+        "totalOrderPrice",
+        "orderStatus"
+      ]
+    },
+    "AddOrderStatus": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": "In Progress"
+        }
+      },
+      "required": [
+        "description"
+      ]
+    }
+  }
+}
