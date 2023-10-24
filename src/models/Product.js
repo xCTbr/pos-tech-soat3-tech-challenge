@@ -5,11 +5,9 @@ const productSchema = new mongoose.Schema(
     {
 			id: {type: String},
 			productName: {type: String, required: true},
-			category: categorySchema,
+			category: {type: mongoose.Schema.Types.ObjectId, ref:'categories', required: true},
 			quantity: {type: Number, required: true},
-			price: {type: Number, required: true},
-			createdBy: {type: String, required: true},
-			updatedBy: {type: String, required: true},
+			price: {type: Number, required: true}
     },
 		{
 			timestamps: { 
