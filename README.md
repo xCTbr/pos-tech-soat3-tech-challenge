@@ -3,29 +3,11 @@
 API Sistema de pedidos 'Totem de autoatendimento'
 
 ## Setup
-- Instalar NPM 
-
 ```bash
-npm i
+docker compose up -d
 ```
 
-- Criar Arquivo .env local com a string de conexão com o mongoose
-```bash
-DB_CONNECTION_STRING="mongodb+srv://user:password@your_mongo_db_connection_string"
-```
-
-- Atualizar documentação do swagger antes de iniciar o servidor
-
-```bash
-npm run doc
-```
-## Running project
-
-```bash
-npm run dev
-```
-
-Swagger UI: http://localhost:3000/doc
+Swagger UI: http://localhost:3000/docs
 
 
 ## Team

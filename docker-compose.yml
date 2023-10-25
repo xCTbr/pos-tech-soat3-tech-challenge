@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/pos-tech-app
+    networks:
+      - app_network
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
