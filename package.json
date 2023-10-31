@@ -1,0 +1,25 @@
+{
+  "name": "pos-tech-soat3-tech-challenge",
+  "version": "1.0.0",
+  "description": "### Turma: 3SOAT",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "doc": "node swagger.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.6.3",
+    "swagger-autogen": "^2.9.0",
+    "swagger-ui-express": "^5.0.0"
+  }
+}

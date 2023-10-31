@@ -1,5 +1,23 @@
 # PÓS-TECH SOAT3 TECH CHALLENGE
 
-### Turma: 3SOAT
+API Sistema de pedidos 'Totem de autoatendimento'
 
-### Grupo 2
+## Setup
+```bash
+docker compose up -d
+```
+
+Swagger UI: http://localhost:3000/docs
+
+
+## Team
+ - Turma: 3SOAT
+ - Grupo: 2
+
+    [Bruna Carlota](brunacarlota@gmail.com)
+
+    [Carlos Tofoli](henrique.tofoli@hotmail.com)
+
+    [Giulliana Munhoz](giullianamunhoz9@gmail.com)
+
+    [Valdeir Jesus](valdeir_014@hotmail.com)
