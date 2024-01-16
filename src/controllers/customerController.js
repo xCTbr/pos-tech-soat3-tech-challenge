@@ -1,108 +1,105 @@
-import { customer } from '../models/Customer.js';
+/*import findAll from '../../application/use_cases/post/findAll';
+import addPost from '../../application/use_cases/post/add';
+import countAll from '../../application/use_cases/post/countAll';
+import findById from '../../application/use_cases/post/findById';
+import updateById from '../../application/use_cases/post/updateById';
+import deletePost from '../../application/use_cases/post/deleteΒyId';*/
+import createCustomer from '../use_cases/customer/create'
 
-class CustomerController {
-	
-	static async listCustomers(req, res) {
+export default function customerController(
+  postDbRepository,
+  postDbRepositoryImpl,
+  cachingClient,
+  postCachingRepository,
+  postCachingRepositoryImpl
+) {
+  const dbRepository = postDbRepository(postDbRepositoryImpl());
+  const cachingRepository = postCachingRepository(
+    postCachingRepositoryImpl()(cachingClient)
+  );
 
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to get all customers.'
+  // Fetch all the posts of the logged in user
+  // const getAllCustomers = (req, res) => {
+  //   const params = {};
+  //   const response = {};
 
-		try {
-			const customerList = await customer.find();
-			res.status(200).json(customerList);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+  //   params.userId = req.user.id;
 
-	static async getCustomerById(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to get customer by ID.'
-		try {
-			const id = req.params.id;
-			const customerFound = await customer.findById(id);
-			res.status(200).json(customerFound);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+  //  getAll(params, dbRepository)
+  //     .then((posts) => {
+  //       response.posts = posts;
+  //       const cachingOptions = {
+  //         key: 'posts_',
+  //         expireTimeSec: 30,
+  //         data: JSON.stringify(posts)
+  //       };
+  //       // cache the result to redis
+  //       cachingRepository.setCache(cachingOptions);
+  //       return countAll(params, dbRepository);
+  //     })
+  //     .then((totalItems) => {
+  //       response.totalItems = totalItems;
+  //       response.totalPages = Math.ceil(totalItems / params.perPage);
+  //       response.itemsPerPage = params.perPage;
+  //       return res.json(response);
+  //     })
+  //     .catch((error) => next(error));
+  // };
 
-	static async getCustomerByCpf(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to get customer by CPF.'
-		try {
-			const CPF = req.query.CPF;
-			const customerCpfFound = await customer.find({'cpf':CPF},{});
-			res.status(200).json(customerCpfFound);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+  // const fetchPostById = (req, res, next) => {
+  //   findById(req.params.id, dbRepository)
+  //     .then((post) => {
+  //       if (!post) {
+  //         throw new Error(`No post found with id: ${req.params.id}`);
+  //       }
+  //       res.json(post);
+  //     })
+  //     .catch((error) => next(error));
+  // };
 
-	static async createCustomer(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to add a customer.'
+  const addNewCustomer = (req, res) => {
+    const { id, name, cpf, email, phone } = req.body;
 
-		/* #swagger.parameters['newCustomer'] = {
-               in: 'body',
-               description: 'Information customer.',
-               required: true,
-               schema: { $ref: "#/definitions/AddCustomer" }
-        } */
-		//schema: { $ref: "#/definitions/AddCustomer" }
-		try {
-			const newCustomer = await customer.create(req.body);
-			res.status(201).json({
-				message: 'Customer created successfully',
-				customer: newCustomer
-			});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Customer creation failed`
-			});
-		}
-	};
+    createCustomer({
+      name,
+      cpf,
+      email,
+      phone,
+      postCustomer: dbRepository
+    })
+      .then((customer) => {
+       
+        return res.json('Customer created successfully');
+      })//`${error.message} - Customer creation failed`
+      .catch((error) => res.json(`${error.message} - Customer creation failed`));
+  };
 
-	static async updateCustomer(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to update customer by ID.'
+  // const deletePostById = (req, res, next) => {
+  //   deletePost(req.params.id, dbRepository)
+  //     .then(() => res.json('post sucessfully deleted!'))
+  //     .catch((error) => next(error));
+  // };
 
-		/* #swagger.parameters['updateCustomer'] = {
-               in: 'body',
-               description: 'Information customer.',
-			   required: true,
-               schema: { $ref: "#/definitions/AddCustomer" }
-        } */
-		try {
-			const id = req.params.id;
-			await customer.findByIdAndUpdate(id, {$set: req.body});
-			res.status(200).json({message: 'Customer updated successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Customer update failed`
-			});
-		}
-	};
+  // const updatePostById = (req, res, next) => {
+  //   const { title, description, isPublished } = req.body;
 
-	static async deleteCustomer(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to delete customer by ID.'
-		try {
-			const id = req.params.id;
-			await customer.findByIdAndDelete(id);
-			res.status(200).json({message: 'Customer deleted successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Customer delete failed`
-			});
-		}
-	};
-};
+  //   updateById({
+  //     id: req.params.id,
+  //     title,
+  //     description,
+  //     userId: req.user.id,
+  //     isPublished,
+  //     postRepository: dbRepository
+  //   })
+  //     .then((message) => res.json(message))
+  //     .catch((error) => next(error));
+  // };
 
-export default CustomerController;
+  return {
+    fetchAllPosts,
+    addNewPost,
+    fetchPostById,
+    updatePostById,
+    deletePostById
+  };
+}
