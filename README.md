@@ -18,6 +18,4 @@ Swagger UI: http://localhost:3000/docs
 
     [Carlos Tofoli](henrique.tofoli@hotmail.com)
 
-    [Giulliana Munhoz](giullianamunhoz9@gmail.com)
-
     [Valdeir Jesus](valdeir_014@hotmail.com)
