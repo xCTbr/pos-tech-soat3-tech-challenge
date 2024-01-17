@@ -4,19 +4,13 @@ import countAll from '../../application/use_cases/post/countAll';
 import findById from '../../application/use_cases/post/findById';
 import updateById from '../../application/use_cases/post/updateById';
 import deletePost from '../../application/use_cases/post/deleteΒyId';*/
-import createCustomer from '../use_cases/customer/create'
+import createCustomer from '../use_cases/customer/create.js'
 
 export default function customerController(
-  postDbRepository,
-  postDbRepositoryImpl,
-  cachingClient,
-  postCachingRepository,
-  postCachingRepositoryImpl
+  customerDbRepository,
+  customerDbRepositoryImpl
 ) {
-  const dbRepository = postDbRepository(postDbRepositoryImpl());
-  const cachingRepository = postCachingRepository(
-    postCachingRepositoryImpl()(cachingClient)
-  );
+  const dbRepository = customerDbRepository(customerDbRepositoryImpl());
 
   // Fetch all the posts of the logged in user
   // const getAllCustomers = (req, res) => {
@@ -65,13 +59,12 @@ export default function customerController(
       cpf,
       email,
       phone,
-      postCustomer: dbRepository
+      dbRepository
     })
-      .then((customer) => {
-       
-        return res.json('Customer created successfully');
-      })//`${error.message} - Customer creation failed`
-      .catch((error) => res.json(`${error.message} - Customer creation failed`));
+			.then((customer) => {
+				return res.json(`Customer created successfully - ${customer}`);
+			})//`${error.message} - Customer creation failed`
+			.catch((error) => res.json(`${error.message} - Customer creation failed`));
   };
 
   // const deletePostById = (req, res, next) => {
@@ -96,10 +89,6 @@ export default function customerController(
   // };
 
   return {
-    fetchAllPosts,
-    addNewPost,
-    fetchPostById,
-    updatePostById,
-    deletePostById
+    addNewCustomer,
   };
 }

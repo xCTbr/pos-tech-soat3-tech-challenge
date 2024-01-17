@@ -1,3 +1,3 @@
 export default function getAllCustomers(params, customerRepository) {
-    return customerRepository.getAllCustomers(params);
-  }
+	return customerRepository.getAllCustomers(params);
+}

@@ -1,21 +1,20 @@
-import customer from '../../entities/Customer';
+import customer from '../../entities/Customer.js';
 
 export default function createCustomer({
-    id,
-    name,
-    cpf,
-    email,
-    phone,
-    createdAt,
-    updatedAt,
-    customerRepository
+	id,
+	name,
+	cpf,
+	email,
+	phone,
+	createdAt,
+	updatedAt,
+	customerRepository
 }){
-    if (!name || !cpf) {
-        throw new Error('Name and CPF fields cannot be empty');
-    } 
+	if (!name || !cpf) {
+		throw new Error('Name and CPF fields cannot be empty');
+	} 
 
-    const newCustomer = customer({id, name, cpf, email,phone,createdAt,updatedAt})
+	const newCustomer = customer({id, name, cpf, email,phone,createdAt,updatedAt})
 
-    return customerRepository.create(newCustomer); 
-
+	return customerRepository.create(newCustomer); 
 }
