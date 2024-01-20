@@ -1,3 +1,4 @@
-export default function getAllCustomers(params, customerRepository) {
-	return customerRepository.getAllCustomers(params);
+export default function getAllCustomers(customerRepository) {
+	console.log(customerRepository);
+	return customerRepository.findAll();
 }

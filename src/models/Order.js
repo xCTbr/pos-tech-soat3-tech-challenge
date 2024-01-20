@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { productSchema } from './Product.js';
-import { customerSchema } from './Customer.js';
+// import { customerSchema } from './Customer.js';
 import { statusSchema } from './Status.js';
 
 const orderSchema = new mongoose.Schema(
