@@ -1,9 +1,9 @@
-import express from "express";
+/*import express from "express";
 import categories from "./categoryRoutes.js";
 import orders from "./orderRoutes.js";
 import products from "./productRoutes.js";
 import status from "./statusRoutes.js";
-import customers from "./customerRoutes.js"
+import customers from "./customerRoutes.js"*/
 
 import swaggerUI from 'swagger-ui-express';
 import swaggerFile from '../../swagger-output.json' assert { type: "json" };
@@ -15,7 +15,7 @@ import customerRepositoryMongoDB from "../frameworks/database/mongoDB/repositori
 
 import bodyParser from "body-parser";
 
-const routes = (app) => {
+/*const routes = (app) => {
 	console.log('routes');
   app.route("/").get((req, res) => res.status(200).send("Sistema de pedidos"));
 
@@ -31,5 +31,16 @@ const routes = (app) => {
   // app.use(express.json(), categories, customers, orders, products, status);
 };
 
-export default routes;
+export default routes;*/
+export default function routes(app, express){
+  
+  //app.use(express.json());
+  //app.use(bodyParser.urlencoded({ extended: true }));
+  //app.use(bodyParser.json());
+  //app.use(express.urlencoded({ extended: true }))
+  // Middleware to parse JSON in the request body
+  app.use(bodyParser.json());
+  app.use('/customer', customerRoutes(express));
+
+}
 

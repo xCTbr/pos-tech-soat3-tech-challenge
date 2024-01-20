@@ -20,8 +20,11 @@ import customerRepositoryMongoDB from "../frameworks/database/mongoDB/repositori
 // export default routes;
 
 export default function customerRoutes(express) {
-	const router = express.Router()
-	const controller = customerController(customerRepository, customerRepositoryMongoDB);
+	const router = express.Router();
+	const controller = customerController(
+    customerRepository,
+    customerRepositoryMongoDB
+  );
 
 	// POST enpdpoints
   //router.post('/', controller.addNewCustomer);
@@ -31,9 +34,21 @@ export default function customerRoutes(express) {
 
 	
   //routes.get("/customer", CustomerController.listCustomers);
-  router.post('/customer',controller.addNewCustomer)
-  router.get('/customer',controller.fetchAllCustomer)
+  /*router.post('/customer',controller.addNewCustomer)
+  router.get('/customer',controller.fetchAllCustomer)*/
 
+  //GET ENDPOINTS
+  router.route('/:id').get(controller.fetchCustomerById);
+  router.route('/').get(controller.fetchAllCustomer);
 
-	return router	
+  //POST ENDPOINTS
+  router.route('/').post(controller.addNewCustomer);
+
+  //PUT ENDPOINTS
+  router.route('/:id').put(controller.updateCustomerById);
+
+  //DELETE ENDPOINTS
+  router.route('/:id').delete(controller.deleteCustomerById);
+
+	return router;
 }

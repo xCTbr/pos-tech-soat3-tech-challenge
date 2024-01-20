@@ -1,4 +1,4 @@
-export default function customer({
+export default function customer(
     name,
     cpf,
     email,
@@ -6,7 +6,7 @@ export default function customer({
 		skype,
     createdAt,
     updatedAt
-  }) {
+  ) {
     return {
       getName: () => name,
       getCpf: () => cpf,
