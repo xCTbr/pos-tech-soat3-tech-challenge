@@ -16,7 +16,8 @@ export default function updateById(
     
   // validate
   if (!name || !cpf) {
-    throw new Error('Name and CPF fields are mandatory');
+    //throw new Error('Name and CPF fields are mandatory');
+    return Promise.resolve('Name and CPF fields are mandatory');
   }
   const updatedCustomer = customer(
     name,
@@ -30,7 +31,8 @@ export default function updateById(
 
   return dbRepository.findById(id).then((foundCustomer) => {
     if (!foundCustomer) {
-      throw new Error(`No customer found with id: ${id}`);
+      //throw new Error(`No customer found with id: ${id}`);
+      return Promise.resolve(`No customer found with id: ${id}`);
     }
     return dbRepository.updateById(id, updatedCustomer);
   });

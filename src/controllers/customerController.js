@@ -42,7 +42,8 @@ export default function customerController(
     findById(req.params.id, dbRepository)
       .then((customer) => {
         if (!customer) {
-          throw new Error(`No customer found with id: ${req.params.id}`);
+          //throw new Error(`No customer found with id: ${req.params.id}`);
+          res.json(`No customer found with id: ${req.params.id}`);
         }
         res.json(customer);
       })
@@ -53,7 +54,8 @@ export default function customerController(
     getAllCustomers( dbRepository)
       .then((customer) => {
         if (!customer) {
-          throw new Error(`No customers found with id: ${req.params.id}`);
+          //throw new Error(`No customers found with id: ${req.params.id}`);
+          res.json(`No customer found`);
         }
         res.json(customer);
       })

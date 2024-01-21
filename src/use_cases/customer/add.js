@@ -12,7 +12,9 @@ export default function createCustomer(
 ){
 		//console.log('caso de uso - add custumer');
     if (!name || !cpf) {
-      throw new Error('Name and CPF fields cannot be empty');
+    //throw new Error('Name and CPF fields cannot be empty');
+
+      return Promise.resolve(`Name and CPF fields cannot be empty`);
     } 
 
     // const newCustomer = customer({id, name, cpf, email, phone, createdAt, updatedAt})
