@@ -9,6 +9,7 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerFile from '../../swagger-output.json' assert { type: "json" };
 import customerRoutes from "./customerRoutes.js";
 import categoryRoutes from './categoryRoutes.js';
+import productRoutes from './productRoutes.js';
 //import customerController from "../controllers/customerController.js";
 //import customerRepository from "../application/repositories/customerDbRepository.js";
 //import customerRepository from "../../src/application/repositories/customerDBRepository.js";
@@ -43,6 +44,7 @@ export default function routes(app, express){
   app.use(bodyParser.json());
   app.use('/customer', customerRoutes(express));
   app.use('/category', categoryRoutes(express));
+  app.use('/product', productRoutes(express));
 
 }
 

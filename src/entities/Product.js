@@ -1,14 +1,12 @@
-export default function product({
-    id,
+export default function product(
     productName,
     category,
     quantity,
     price,
     createdAt,
     updatedAt
-  }) {
+  ) {
     return {
-      getIdProduct: () => idProduct,
       getProductName: () => productName,
       getCategory: () => category,
       getQuantity: () => quantity,
