@@ -8,10 +8,11 @@ import customers from "./customerRoutes.js"*/
 import swaggerUI from 'swagger-ui-express';
 import swaggerFile from '../../swagger-output.json' assert { type: "json" };
 import customerRoutes from "./customerRoutes.js";
-import customerController from "../controllers/customerController.js";
+import categoryRoutes from './categoryRoutes.js';
+//import customerController from "../controllers/customerController.js";
 //import customerRepository from "../application/repositories/customerDbRepository.js";
-import customerRepository from "../../src/application/repositories/customerDBRepository.js";
-import customerRepositoryMongoDB from "../frameworks/database/mongoDB/repositories/customerRepositoryMongoDB.js";
+//import customerRepository from "../../src/application/repositories/customerDBRepository.js";
+//import customerRepositoryMongoDB from "../frameworks/database/mongoDB/repositories/customerRepositoryMongoDB.js";
 
 import bodyParser from "body-parser";
 
@@ -41,6 +42,7 @@ export default function routes(app, express){
   // Middleware to parse JSON in the request body
   app.use(bodyParser.json());
   app.use('/customer', customerRoutes(express));
+  app.use('/category', categoryRoutes(express));
 
 }
 

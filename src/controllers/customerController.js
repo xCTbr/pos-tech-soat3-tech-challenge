@@ -1,7 +1,7 @@
 import createCustomer from '../use_cases/customer/add.js'
 import getAllCustomers from '../use_cases/customer/getAll.js'
 import findById from '../use_cases/customer/findById.js';
-import deleteCustumer from '../use_cases/customer/deleteById.js'
+import deleteCustomer from '../use_cases/customer/deleteById.js'
 import updateById from '../use_cases/customer/updateById.js';
 
 export default function customerController(
@@ -63,8 +63,8 @@ export default function customerController(
   };
 
   const deleteCustomerById = (req, res, next) => {
-    deleteCustumer(req.params.id, dbRepository)
-      .then(() => res.json('Custumer sucessfully deleted!'))
+    deleteCustomer(req.params.id, dbRepository)
+      .then(() => res.json('Customer sucessfully deleted!'))
       .catch((error) => next(error));
   };
   
