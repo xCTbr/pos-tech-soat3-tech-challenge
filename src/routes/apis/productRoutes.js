@@ -24,14 +24,16 @@ export default function productRoutes(express) {
   );
 
   //GET ENDPOINTS
-  router.route('/:id').get(controller.fetchProductById,
-    // #swagger.tags = ['Product']
-		// #swagger.description = 'Endpoint to get product by ID.'
-    );
   router.route('/').get(controller.fetchAllProduct,
     // #swagger.tags = ['Product']
 		// #swagger.description = 'Endpoint to get all products.'
     );
+
+  router.route('/:id').get(controller.fetchProductById,
+    // #swagger.tags = ['Product']
+		// #swagger.description = 'Endpoint to get product by ID.'
+    );
+ 
 
   //POST ENDPOINTS
   router.route('/').post(controller.addNewProduct,

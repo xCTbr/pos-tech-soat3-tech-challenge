@@ -11,124 +11,6 @@
     "http"
   ],
   "paths": {
-    "/{id}": {
-      "get": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Endpoint to get product by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Endpoint to update product by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "updateProduct",
-            "in": "body",
-            "description": "Information customer.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddProduct"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Endpoint to delete product by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Endpoint to get all products.",
-        "responses": {
-          "404": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "msg": {
-                  "type": "string",
-                  "example": "Estadio não encontrado."
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            },
-            "description": "Not Found"
-          },
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Endpoint to add product.",
-        "parameters": [
-          {
-            "name": "newProduct",
-            "in": "body",
-            "description": "Information product.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddProduct"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/customer/": {
       "get": {
         "tags": [
@@ -347,6 +229,41 @@
         }
       }
     },
+    "/product/": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get all products.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to add product.",
+        "parameters": [
+          {
+            "name": "newProduct",
+            "in": "body",
+            "description": "Information product.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/product/{id}": {
       "get": {
         "tags": [
@@ -406,41 +323,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/product/": {
-      "get": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Endpoint to get all products.",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Endpoint to add product.",
-        "parameters": [
-          {
-            "name": "newProduct",
-            "in": "body",
-            "description": "Information product.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddProduct"
-            }
           }
         ],
         "responses": {
