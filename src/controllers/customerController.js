@@ -14,6 +14,8 @@ export default function customerController(
   
 	const addNewCustomer = (req, res, next) => {
 		console.log('controler customer');
+    // #swagger.tags = ['Customer']
+    // #swagger.description = 'Endpoint to get all custo'
     //console.log('repositorio-> ',dbRepository);
 		//console.log('Request body:', req.body);
     const { name, cpf, email, phone, skype } = req.body;
@@ -36,26 +38,31 @@ export default function customerController(
 		.catch((error) => res.json(`${error.message} - Customer creation failed`));*/
   };
 
-  const fetchCustomerById = (req, res, next) => {
-    //console.log('params by id-> ',req.params.id);
-    //console.log('repository -> ',dbRepository);
-    findById(req.params.id, dbRepository)
+  const fetchAllCustomer = (req, res, next) => {
+
+    getAllCustomers( dbRepository)
       .then((customer) => {
         if (!customer) {
-          //throw new Error(`No customer found with id: ${req.params.id}`);
-          res.json(`No customer found with id: ${req.params.id}`);
+          //throw new Error(`No customers found with id: ${req.params.id}`);
+          res.json(`No customer found`);
         }
         res.json(customer);
       })
       .catch((error) => next(error));
   };
 
-  const fetchAllCustomer = (req, res, next) => {
-    getAllCustomers( dbRepository)
+  const fetchCustomerById = (req, res, next) => {
+    //console.log('params by id-> ',req.params.id);
+    //console.log('repository -> ',dbRepository);
+
+    // #swagger.tags = ['Product']
+		// #swagger.description = 'Endpoint to get product by ID.'
+
+    findById(req.params.id, dbRepository)
       .then((customer) => {
         if (!customer) {
-          //throw new Error(`No customers found with id: ${req.params.id}`);
-          res.json(`No customer found`);
+          //throw new Error(`No customer found with id: ${req.params.id}`);
+          res.json(`No customer found with id: ${req.params.id}`);
         }
         res.json(customer);
       })

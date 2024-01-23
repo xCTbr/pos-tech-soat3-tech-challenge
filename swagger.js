@@ -67,5 +67,7 @@ https://github.com/davibaltar/example-swagger-autogen/blob/master/swagger.js
 https://www.npmjs.com/package/swagger-autogen
 https://davibaltar.medium.com/documenta%C3%A7%C3%A3o-autom%C3%A1tica-de-apis-em-node-js-eb03041c643b
 */
-swaggerAutogen()('./swagger-output.json', ['./src/routes/customerRoutes.js',
-'./src/routes/categoryRoutes.js','./src/routes/productRoutes.js','./src/routes/orderRoutes.js','./src/routes/statusRoutes.js'], document);
+swaggerAutogen()('./swagger-output.json', ['./src/routes/*.js'], document);
+
+/*swaggerAutogen()('./swagger-output.json', ['./src/routes/customerRoutes.js',
+'./src/routes/categoryRoutes.js','./src/routes/productRoutes.js','./src/routes/orderRoutes.js','./src/routes/statusRoutes.js'], document);*/

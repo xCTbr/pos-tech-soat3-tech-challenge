@@ -3,6 +3,7 @@ import customerController from "../controllers/customerController.js";
 import customerRepository from "../../src/application/repositories/customerDBRepository.js";
 import customerRepositoryMongoDB from "../frameworks/database/mongoDB/repositories/customerRepositoryMongoDB.js";
 
+
 // const routes = express.Router();
 
 // const controller = customerController(customerRepository, customerRepositoryMongoDB);
@@ -36,6 +37,9 @@ export default function customerRoutes(express) {
   //routes.get("/customer", CustomerController.listCustomers);
   /*router.post('/customer',controller.addNewCustomer)
   router.get('/customer',controller.fetchAllCustomer)*/
+
+
+ 
 
   //GET ENDPOINTS
   router.route('/:id').get(controller.fetchCustomerById);

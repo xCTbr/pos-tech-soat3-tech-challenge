@@ -10,6 +10,7 @@ import swaggerFile from '../../swagger-output.json' assert { type: "json" };
 import customerRoutes from "./customerRoutes.js";
 import categoryRoutes from './categoryRoutes.js';
 import productRoutes from './productRoutes.js';
+import orderRoutes from './orderRoutes.js';
 //import customerController from "../controllers/customerController.js";
 //import customerRepository from "../application/repositories/customerDbRepository.js";
 //import customerRepository from "../../src/application/repositories/customerDBRepository.js";
@@ -34,6 +35,10 @@ import bodyParser from "body-parser";
 };
 
 export default routes;*/
+
+// routes/user.js
+
+
 export default function routes(app, express){
   
   //app.use(express.json());
@@ -45,6 +50,10 @@ export default function routes(app, express){
   app.use('/customer', customerRoutes(express));
   app.use('/category', categoryRoutes(express));
   app.use('/product', productRoutes(express));
+  app.use('/order', orderRoutes(express));
 
+  //app.route("/").get((req, res) => res.status(200).send("Sistema de pedidos"));
+
+  app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 }
 

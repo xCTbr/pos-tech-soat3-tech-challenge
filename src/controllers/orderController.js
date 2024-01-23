@@ -1,97 +1,98 @@
-import order from "../models/Order.js";
+import createOrder from '../use_cases/order/add.js'
+import getAllCategories from '../use_cases/order/getAll.js'
+import findById from '../use_cases/order/findById.js';
+import deleteOrder from '../use_cases/order/deleteById.js'
+import updateById from '../use_cases/order/updateById.js';
+import getAllOrders from '../use_cases/order/getAll.js';
 
-class OrderController {
-	
-	static async listOrders(req, res) {
-		// #swagger.tags = ['Order']
-		// #swagger.description = 'Endpoint to list all orders.'
-		try {
-			const orderList = await order.find()
-			.populate('customer','cpf')
-			.populate('orderProducts.productID')
-			.populate('orderStatus','description');
-			
-			res.status(200).json(orderList);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+export default function orderController(
+  orderRepository,
+  orderRepositoryMongoDB,
+) {
+  //const dbRepository = orderRepository(orderRepositoryMongoDB());
+  const dbRepository = orderRepository(orderRepositoryMongoDB());
 
-	static async getOrderById(req, res) {
-		// #swagger.tags = ['Order']
-		// #swagger.description = 'Endpoint to get order by ID.'
-		try {
-			const id = req.params.id;
-			const orderFound = await order.findById(id);
-			res.status(200).json(orderFound);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+  
+	const addNewOrder = (req, res, next) => {
+		console.log('controller order');
+    //console.log('repositorio-> ',dbRepository);
+		//console.log('Request body:', req.body);
+    const { orderNumber, customer, orderProducts, totalOrderPrice, orderStatus} = req.body;
 
-	static async createOrder(req, res) {
-		// #swagger.tags = ['Order']
-		// #swagger.description = 'Endpoint to create a order.'
-		
-		/* #swagger.parameters['createOrder'] = {
-               in: 'body',
-               description: 'Information order.',
-			   required: true,
-               schema: { $ref: "#/definitions/AddOrder" }
-        } */
-		try {
-			const newOrder = await order.create(req.body);
-			res.status(201).json({
-				message: 'Order created successfully',
-				order: newOrder
-			});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Order creation failed`
-			});
-		}
-	};
+    createOrder(
+		orderNumber,
+		customer,
+		orderProducts,
+		totalOrderPrice,
+		orderStatus,
+		Date(),
+		Date(),
+		dbRepository
+    )
+    .then((order) => res.json(order))
+    .catch((error) => res.json(next(`${error.message} - Order creation failed`)));
+		/*.then((order) => {
+			return res.json('Order created successfully');
+		})
+		.catch((error) => res.json(`${error.message} - Order creation failed`));*/
+  };
 
-	static async updateOrder(req, res) {
-		// #swagger.tags = ['Order']
-		// #swagger.description = 'Endpoint to update order by ID.'
-		
-		/* #swagger.parameters['updateOrder'] = {
-               in: 'body',
-               description: 'Information order.',
-			   required: true,
-               schema: { $ref: "#/definitions/AddOrder" }
-        } */
-		try {
-			const id = req.params.id;
-			await order.findByIdAndUpdate(id, {$set: req.body});
-			res.status(200).json({message: 'Order updated successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Order update failed`
-			});
-		}
-	};
+  const fetchOrderById = (req, res, next) => {
+    //console.log('params by id-> ',req.params.id);
+    //console.log('repository -> ',dbRepository);
+    findById(req.params.id, dbRepository)
+      .then((order) => {
+        if (!order) {
+          //throw new Error(`No order found with id: ${req.params.id}`);
+          res.json(`No order found with id: ${req.params.id}`);
+        }
+        res.json(order);
+      })
+      .catch((error) => next(error));
+  };
 
-	static async deleteOrder(req, res) {
-		try {
+  const fetchAllOrder = (req, res, next) => {
+    getAllOrders( dbRepository)
+      .then((order) => {
+        if (!order) {
+          //throw new Error(`No orders found with id: ${req.params.id}`);
+          res.json(`No order found`);
+        }
+        res.json(order);
+      })
+      .catch((error) => next(error));
+  };
 
-		// #swagger.tags = ['Order']
-		// #swagger.description = 'Endpoint to delete order by ID.'
+  const deleteOrderById = (req, res, next) => {
+    deleteOrder(req.params.id, dbRepository)
+      .then(() => res.json('Order sucessfully deleted!'))
+      .catch((error) => next(error));
+  };
+  
+  const updateOrderById = (req, res, next) => {
+    const {orderNumber, customer, orderProducts, totalOrderPrice, orderStatus} = req.body;
 
-			const id = req.params.id;
-			await order.findByIdAndDelete(id);
-			res.status(200).json({message: 'Order deleted successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Order delete failed`
-			});
-		}
-	};
-};
-
-export default OrderController;
+    //console.log('controller update by id->',dbRepository);
+    updateById(
+		req.params.id,
+		orderNumber,
+		customer,
+		orderProducts,
+		totalOrderPrice,
+		orderStatus,
+		Date(),
+		dbRepository
+    )
+      .then((message) => res.json(message))
+      .catch((error) => next(error));
+      
+  };
+  //console.log('Controller final',dbRepository);
+  return {
+	addNewOrder,
+    fetchAllOrder,
+    fetchOrderById,
+    updateOrderById,
+    deleteOrderById
+  };
+}

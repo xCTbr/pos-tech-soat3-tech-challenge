@@ -1,5 +1,4 @@
-export default function order({
-    id,
+export default function order(
     orderNumber,
     customer,
     orderProducts, //array of products
@@ -7,9 +6,8 @@ export default function order({
     orderStatus,
     createdAt,
     updatedAt
-  }) {
+  ) {
     return {
-      getId: () => id,
       getOrderNumber: () => orderNumber,
       getCustomer: () => customer,
       getOrderProducts: () => orderProducts,
