@@ -6,7 +6,7 @@ import status from "./statusRoutes.js";
 import customers from "./customerRoutes.js"*/
 
 import swaggerUI from 'swagger-ui-express';
-import swaggerFile from '../../swagger-output.json' assert { type: "json" };
+import swaggerFile from '../../../swagger-output.json' assert { type: "json" };
 import customerRoutes from "./customerRoutes.js";
 import categoryRoutes from './categoryRoutes.js';
 import productRoutes from './productRoutes.js';

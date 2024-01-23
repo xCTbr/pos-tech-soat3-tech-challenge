@@ -13,7 +13,18 @@
   "paths": {
     "/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -21,7 +32,27 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to update product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateProduct",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -29,7 +60,18 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to delete product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -39,41 +81,47 @@
     },
     "/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get all products.",
         "responses": {
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Estadio não encontrado."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          },
           "default": {
             "description": ""
           }
         }
       },
       "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to add product.",
+        "parameters": [
+          {
+            "name": "newProduct",
+            "in": "body",
+            "description": "Information product.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
           }
-        }
-      }
-    },
-    "/customer/{id}": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "description": "",
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -83,15 +131,112 @@
     },
     "/customer/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get all customers.",
+        "responses": {
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Estadio não encontrado."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to add a customer.",
+        "parameters": [
+          {
+            "name": "newCustomer",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/customer/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
           }
         }
       },
-      "post": {
-        "description": "",
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateCustomer",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to delete customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -101,7 +246,18 @@
     },
     "/category/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to get category by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -109,7 +265,27 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateCategory",
+            "in": "body",
+            "description": "Information do category.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -117,7 +293,18 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to delete category by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -127,7 +314,10 @@
     },
     "/category/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to list all categories.",
         "responses": {
           "default": {
             "description": ""
@@ -135,7 +325,21 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to add category.",
+        "parameters": [
+          {
+            "name": "newCategory",
+            "in": "body",
+            "description": "Information category.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -145,7 +349,18 @@
     },
     "/product/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -153,7 +368,27 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to update product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateProduct",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -161,7 +396,18 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to delete product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -171,7 +417,10 @@
     },
     "/product/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get all products.",
         "responses": {
           "default": {
             "description": ""
@@ -179,7 +428,21 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to add product.",
+        "parameters": [
+          {
+            "name": "newProduct",
+            "in": "body",
+            "description": "Information product.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -189,7 +452,18 @@
     },
     "/order/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to get order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -197,7 +471,27 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to update order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrder"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -205,7 +499,18 @@
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to delete order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -215,6 +520,9 @@
     },
     "/order/": {
       "get": {
+        "tags": [
+          "Order"
+        ],
         "description": "",
         "responses": {
           "default": {
@@ -223,128 +531,24 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to create a order.",
+        "parameters": [
+          {
+            "name": "createOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrder"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
-          }
-        }
-      }
-    },
-    "/status": {
-      "get": {
-        "tags": [
-          "Order Status"
-        ],
-        "description": "Endpoint to list all Order Status.",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Order Status"
-        ],
-        "description": "Endpoint to create Order Status.",
-        "parameters": [
-          {
-            "name": "createOrderStatus",
-            "in": "body",
-            "description": "Information order.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddOrderStatus"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/status/{id}": {
-      "get": {
-        "tags": [
-          "Order Status"
-        ],
-        "description": "Endpoint to list all Order Status by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Order Status"
-        ],
-        "description": "Endpoint to update Order Status.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "createOrderStatus",
-            "in": "body",
-            "description": "Information order.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddOrderStatus"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Order Status"
-        ],
-        "description": "Endpoint to delete Order Status.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }

@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "./routes/index.js";
+import routes from "./routes/apis/index.js";
 import connectDatabase from "./config/dbConnect.js";
 
 const conexao = await connectDatabase();

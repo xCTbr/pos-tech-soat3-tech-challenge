@@ -1,5 +1,4 @@
 import createOrder from '../use_cases/order/add.js'
-import getAllCategories from '../use_cases/order/getAll.js'
 import findById from '../use_cases/order/findById.js';
 import deleteOrder from '../use_cases/order/deleteById.js'
 import updateById from '../use_cases/order/updateById.js';
