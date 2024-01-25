@@ -1,20 +1,6 @@
-/*import express from "express";
-import CategoryController from "../controllers/categoryController.js";
-
-const routes = express.Router();
-
-routes.get("/category", CategoryController.listCategories);
-routes.get("/category/:id", CategoryController.getCategoryById);
-routes.post("/category", CategoryController.createCategory);
-routes.put("/category/:id", CategoryController.updateCategory);
-routes.delete("/category/:id", CategoryController.deleteCategory);
-
-export default routes;*/
-
-
-import categoryController from "../../controllers/categoryController.js";
-import categoryRepository from "../../../src/application/repositories/categoryDBRepository.js";
-import categoryRepositoryMongoDB from "../../frameworks/database/mongoDB/repositories/categoryRepositoryMongoDB.js";
+import categoryController from "../controllers/categoryController.js";
+import categoryRepository from "../application/repositories/categoryDBRepository.js";
+import categoryRepositoryMongoDB from "../db/database/mongoDB/repositories/categoryRepositoryMongoDB.js";
 
 
 export default function categoryRoutes(express) {
@@ -25,14 +11,15 @@ export default function categoryRoutes(express) {
   );
 
   //GET ENDPOINTS
-  router.route('/:id').get(controller.fetchCategoryById,
-    // #swagger.tags = ['Category']
-		// #swagger.description = 'Endpoint to get category by ID.'
-    );
   router.route('/').get(controller.fetchAllCategory,
     // #swagger.tags = ['Category']
 		// #swagger.description = 'Endpoint to list all categories.'
     );
+  router.route('/:id').get(controller.fetchCategoryById,
+    // #swagger.tags = ['Category']
+		// #swagger.description = 'Endpoint to get category by ID.'
+    );
+  
 
   //POST ENDPOINTS
   router.route('/').post(controller.addNewCategory,

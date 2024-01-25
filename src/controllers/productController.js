@@ -1,8 +1,8 @@
-import createProduct from '../use_cases/product/add.js'
-import getAllCategories from '../use_cases/product/getAll.js'
-import findById from '../use_cases/product/findById.js';
-import deleteProduct from '../use_cases/product/deleteById.js'
-import updateById from '../use_cases/product/updateById.js';
+import usecaseCreate from '../use_cases/product/add.js'
+import useCasegetAll from '../use_cases/product/getAll.js'
+import useCasefindById from '../use_cases/product/findById.js';
+import useCaseDelete from '../use_cases/product/deleteById.js'
+import useCaseUpdateById from '../use_cases/product/updateById.js';
 
 export default function productController(
   productRepository,
@@ -18,7 +18,7 @@ export default function productController(
 		//console.log('Request body:', req.body);
     const { productName, category, quantity, price } = req.body;
 
-    createProduct(
+    usecaseCreate(
 			productName,
       category,
       quantity,
@@ -38,7 +38,7 @@ export default function productController(
   const fetchProductById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    findById(req.params.id, dbRepository)
+    useCasefindById(req.params.id, dbRepository)
       .then((product) => {
         if (!product) {
           //throw new Error(`No product found with id: ${req.params.id}`);
@@ -50,7 +50,7 @@ export default function productController(
   };
 
   const fetchAllProduct = (req, res, next) => {
-    getAllCategories( dbRepository)
+    useCasegetAll( dbRepository)
       .then((product) => {
         if (!product) {
           //throw new Error(`No products found with id: ${req.params.id}`);
@@ -62,7 +62,7 @@ export default function productController(
   };
 
   const deleteProductById = (req, res, next) => {
-    deleteProduct(req.params.id, dbRepository)
+    useCaseDelete(req.params.id, dbRepository)
       .then(() => res.json('Product sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -71,7 +71,7 @@ export default function productController(
     const {productName, category, quantity, price} = req.body;
 
     //console.log('controller update by id->',dbRepository);
-    updateById(
+    useCaseUpdateById(
       req.params.id,
       productName,
       category,

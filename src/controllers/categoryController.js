@@ -1,8 +1,8 @@
-import createCategory from '../use_cases/category/add.js'
-import getAllCategories from '../use_cases/category/getAll.js'
-import findById from '../use_cases/category/findById.js';
-import deleteCategory from '../use_cases/category/deleteById.js'
-import updateById from '../use_cases/category/updateById.js';
+import useCaseCreate from '../use_cases/category/add.js'
+import useCasegetAll from '../use_cases/category/getAll.js'
+import useCaseFindById from '../use_cases/category/findById.js';
+import useCasedelete from '../use_cases/category/deleteById.js'
+import useCaseUpdateById from '../use_cases/category/updateById.js';
 
 export default function categoryController(
   categoryRepository,
@@ -18,7 +18,7 @@ export default function categoryController(
 		//console.log('Request body:', req.body);
     const { categoryName, description } = req.body;
 
-    createCategory(
+    useCaseCreate(
 			categoryName,
       description,
       Date(),
@@ -36,7 +36,7 @@ export default function categoryController(
   const fetchCategoryById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    findById(req.params.id, dbRepository)
+    useCaseFindById(req.params.id, dbRepository)
       .then((category) => {
         if (!category) {
           //throw new Error(`No category found with id: ${req.params.id}`);
@@ -48,7 +48,7 @@ export default function categoryController(
   };
 
   const fetchAllCategory = (req, res, next) => {
-    getAllCategories( dbRepository)
+    useCasegetAll( dbRepository)
       .then((category) => {
         if (!category) {
           //throw new Error(`No categorys found with id: ${req.params.id}`);
@@ -60,7 +60,7 @@ export default function categoryController(
   };
 
   const deleteCategoryById = (req, res, next) => {
-    deleteCategory(req.params.id, dbRepository)
+    useCasedelete(req.params.id, dbRepository)
       .then(() => res.json('Category sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -69,7 +69,7 @@ export default function categoryController(
     const {categoryName, description} = req.body;
 
     //console.log('controller update by id->',dbRepository);
-    updateById(
+    useCaseUpdateById(
       req.params.id,
       categoryName,
       description,

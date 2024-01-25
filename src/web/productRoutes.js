@@ -1,19 +1,6 @@
-/*import express from "express";
-import ProductController from "../controllers/productController.js";
-
-const routes = express.Router();
-
-routes.get("/product", ProductController.listProducts);
-routes.get("/product/:id", ProductController.getProductById);
-routes.post("/product", ProductController.createProduct);
-routes.put("/product/:id", ProductController.updateProduct);
-routes.delete("/product/:id", ProductController.deleteProduct);
-
-export default routes;*/
-
-import productController from "../../controllers/productController.js";
-import productRepository from "../../../src/application/repositories/productDBRepository.js";
-import productRepositoryMongoDB from "../../frameworks/database/mongoDB/repositories/productRepositoryMongoDB.js";
+import productController from "../controllers/productController.js";
+import productRepository from "../application/repositories/productDBRepository.js";
+import productRepositoryMongoDB from "../db/database/mongoDB/repositories/productRepositoryMongoDB.js";
 
 
 export default function productRoutes(express) {
@@ -33,7 +20,6 @@ export default function productRoutes(express) {
     // #swagger.tags = ['Product']
 		// #swagger.description = 'Endpoint to get product by ID.'
     );
- 
 
   //POST ENDPOINTS
   router.route('/').post(controller.addNewProduct,

@@ -1,19 +1,6 @@
-/*import express from "express";
-import OrderController from "../controllers/orderController.js";
-
-const routes = express.Router();
-
-routes.get("/order", OrderController.listOrders);
-routes.get("/order/:id", OrderController.getOrderById);
-routes.post("/order", OrderController.createOrder);
-routes.put("/order/:id", OrderController.updateOrder);
-routes.delete("/order/:id", OrderController.deleteOrder);
-
-export default routes;
-*/
-import orderController from "../../controllers/orderController.js";
-import orderRepository from "../../../src/application/repositories/orderDBRepository.js";
-import orderRepositoryMongoDB from "../../frameworks/database/mongoDB/repositories/orderRepositoryMongoDB.js";
+import orderController from "../controllers/orderController.js";
+import orderRepository from "../application/repositories/orderDBRepository.js";
+import orderRepositoryMongoDB from "../db/database/mongoDB/repositories/orderRepositoryMongoDB.js";
 
 
 export default function orderRoutes(express) {
@@ -24,15 +11,14 @@ export default function orderRoutes(express) {
   );
 
   //GET ENDPOINTS
-  router.route('/:id').get(controller.fetchOrderById,
-    // #swagger.tags = ['Order']
-		// #swagger.description = 'Endpoint to get order by ID.'
-    );
   router.route('/').get(controller.fetchAllOrder,
     // #swagger.tags = ['Order']
 		// #swagger.description = 'Endpoint to list al
     );
-
+  router.route('/:id').get(controller.fetchOrderById,
+    // #swagger.tags = ['Order']
+		// #swagger.description = 'Endpoint to get order by ID.'
+    );
   //POST ENDPOINTS
   router.route('/').post(controller.addNewOrder,
     // #swagger.tags = ['Order']

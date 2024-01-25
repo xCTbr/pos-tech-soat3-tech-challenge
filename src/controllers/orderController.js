@@ -1,8 +1,8 @@
-import createOrder from '../use_cases/order/add.js'
-import findById from '../use_cases/order/findById.js';
-import deleteOrder from '../use_cases/order/deleteById.js'
-import updateById from '../use_cases/order/updateById.js';
-import getAllOrders from '../use_cases/order/getAll.js';
+import useCaseCreate from '../use_cases/order/add.js'
+import useCasefindById from '../use_cases/order/findById.js';
+import useCasedelete from '../use_cases/order/deleteById.js'
+import useCaseupdateById from '../use_cases/order/updateById.js';
+import useCaseGetAllOrders from '../use_cases/order/getAll.js';
 
 export default function orderController(
   orderRepository,
@@ -18,7 +18,7 @@ export default function orderController(
 		//console.log('Request body:', req.body);
     const { orderNumber, customer, orderProducts, totalOrderPrice, orderStatus} = req.body;
 
-    createOrder(
+    useCaseCreate(
 		orderNumber,
 		customer,
 		orderProducts,
@@ -39,7 +39,7 @@ export default function orderController(
   const fetchOrderById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    findById(req.params.id, dbRepository)
+    useCasefindById(req.params.id, dbRepository)
       .then((order) => {
         if (!order) {
           //throw new Error(`No order found with id: ${req.params.id}`);
@@ -51,7 +51,7 @@ export default function orderController(
   };
 
   const fetchAllOrder = (req, res, next) => {
-    getAllOrders( dbRepository)
+    useCaseGetAllOrders( dbRepository)
       .then((order) => {
         if (!order) {
           //throw new Error(`No orders found with id: ${req.params.id}`);
@@ -63,7 +63,7 @@ export default function orderController(
   };
 
   const deleteOrderById = (req, res, next) => {
-    deleteOrder(req.params.id, dbRepository)
+    useCasedelete(req.params.id, dbRepository)
       .then(() => res.json('Order sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -72,7 +72,7 @@ export default function orderController(
     const {orderNumber, customer, orderProducts, totalOrderPrice, orderStatus} = req.body;
 
     //console.log('controller update by id->',dbRepository);
-    updateById(
+    useCaseupdateById(
 		req.params.id,
 		orderNumber,
 		customer,

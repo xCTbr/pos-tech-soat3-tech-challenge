@@ -1,8 +1,8 @@
-import createCustomer from '../use_cases/customer/add.js'
-import getAllCustomers from '../use_cases/customer/getAll.js'
-import findById from '../use_cases/customer/findById.js';
-import deleteCustomer from '../use_cases/customer/deleteById.js'
-import updateById from '../use_cases/customer/updateById.js';
+import useCaseCreate from '../use_cases/customer/add.js'
+import useCaseGetAll from '../use_cases/customer/getAll.js'
+import useCasefindById from '../use_cases/customer/findById.js';
+import useCasedelete from '../use_cases/customer/deleteById.js'
+import useCaseupdateById from '../use_cases/customer/updateById.js';
 
 export default function customerController(
   customerRepository,
@@ -13,7 +13,7 @@ export default function customerController(
 
   
   const fetchAllCustomer = (req, res, next) => {
-    getAllCustomers(dbRepository)
+    useCaseGetAll(dbRepository)
       .then((customer) => {
         if (!customer) {
           //throw new Error(`No customers found with id: ${req.params.id}`);
@@ -31,7 +31,7 @@ export default function customerController(
 		//console.log('Request body:', req.body);
     const { name, cpf, email, phone, skype } = req.body;
 
-    createCustomer(
+    useCaseCreate(
 			name,
       cpf,
       email,
@@ -52,7 +52,7 @@ export default function customerController(
   const fetchCustomerById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    findById(req.params.id, dbRepository)
+    useCasefindById(req.params.id, dbRepository)
       .then((customer) => {
         if (!customer) {
           //throw new Error(`No customer found with id: ${req.params.id}`);
@@ -65,7 +65,7 @@ export default function customerController(
 
 
   const deleteCustomerById = (req, res, next) => {
-    deleteCustomer(req.params.id, dbRepository)
+    useCasedelete(req.params.id, dbRepository)
       .then(() => res.json('Customer sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -74,7 +74,7 @@ export default function customerController(
     const {name, cpf, email, phone, skype } = req.body;
 
     //console.log('controller update by id->',dbRepository);
-    updateById(
+    useCaseupdateById(
       req.params.id,
       name,
       cpf,

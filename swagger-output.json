@@ -24,7 +24,7 @@
               "properties": {
                 "msg": {
                   "type": "string",
-                  "example": "Estadio não encontrado."
+                  "example": "Customers not found."
                 }
               },
               "xml": {
@@ -126,6 +126,41 @@
         }
       }
     },
+    "/category/": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to list all categories.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to add category.",
+        "parameters": [
+          {
+            "name": "newCategory",
+            "in": "body",
+            "description": "Information category.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/category/{id}": {
       "get": {
         "tags": [
@@ -185,41 +220,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/category/": {
-      "get": {
-        "tags": [
-          "Category"
-        ],
-        "description": "Endpoint to list all categories.",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Category"
-        ],
-        "description": "Endpoint to add category.",
-        "parameters": [
-          {
-            "name": "newCategory",
-            "in": "body",
-            "description": "Information category.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddCategory"
-            }
           }
         ],
         "responses": {
@@ -332,6 +332,41 @@
         }
       }
     },
+    "/order/": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to create a order.",
+        "parameters": [
+          {
+            "name": "createOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrder"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/order/{id}": {
       "get": {
         "tags": [
@@ -391,41 +426,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/order/": {
-      "get": {
-        "tags": [
-          "Order"
-        ],
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Order"
-        ],
-        "description": "Endpoint to create a order.",
-        "parameters": [
-          {
-            "name": "createOrder",
-            "in": "body",
-            "description": "Information order.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddOrder"
-            }
           }
         ],
         "responses": {
