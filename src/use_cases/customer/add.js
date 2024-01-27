@@ -1,14 +1,15 @@
 import customer from "../../entities/Customer.js";
+import customerGateway from "../../application/customerGateway.js";
+
+const gateway = customerGateway();
 
 export default function createCustomer(
     name,
     cpf,
     email,
     phone,
-		skype,
     createdAt,
-    updatedAt,
-    dbRepository
+    updatedAt
 ){
 		//console.log('caso de uso - add custumer');
     if (!name || !cpf) {
@@ -18,8 +19,8 @@ export default function createCustomer(
     } 
 
     // const newCustomer = customer({id, name, cpf, email, phone, createdAt, updatedAt})
-		const newCustomer = customer(name, cpf, email, phone, skype, createdAt, updatedAt)
+		const newCustomer = customer(name, cpf, email, phone, createdAt, updatedAt)
     
-    return dbRepository.add(newCustomer);
+    return gateway.add(newCustomer);
 		// return Promise.resolve('Joia')
 }

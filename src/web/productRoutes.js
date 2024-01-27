@@ -1,14 +1,10 @@
 import productController from "../controllers/productController.js";
-import productRepository from "../application/repositories/productDBRepository.js";
-import productRepositoryMongoDB from "../db/database/mongoDB/repositories/productRepositoryMongoDB.js";
+
 
 
 export default function productRoutes(express) {
 	const router = express.Router();
-	const controller = productController(
-    productRepository,
-    productRepositoryMongoDB
-  );
+	const controller = productController();
 
   //GET ENDPOINTS
   router.route('/').get(controller.fetchAllProduct,

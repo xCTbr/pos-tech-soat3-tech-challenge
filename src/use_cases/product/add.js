@@ -1,4 +1,7 @@
 import product from "../../entities/Product.js";
+import productGateway from "../../application/productGateway.js";
+
+const gateway = productGateway();
 
 export default function createProduct(
     productName,
@@ -6,8 +9,7 @@ export default function createProduct(
     quantity,
     price,
     createdAt,
-    updatedAt,
-    dbRepository
+    updatedAt
 ){
 		//console.log('caso de uso - add custumer');
     if (!productName || !category || !quantity || !price) {
@@ -19,6 +21,6 @@ export default function createProduct(
     // const newProduct = product({id, name, cpf, email, phone, createdAt, updatedAt})
 		const newProduct = product(productName, category, quantity, price, createdAt, updatedAt)
     
-    return dbRepository.add(newProduct);
+    return gateway.add(newProduct);
 		// return Promise.resolve('Joia')
 }

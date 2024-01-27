@@ -57,7 +57,16 @@ const document = {
             $orderStatus: "ID Status"
         },
         AddOrderStatus:{
-            $description: "In Progress",
+            $description: "Waiting payment"
+        },
+        AddPayment: {
+            $description: "Description of payment",
+            $order: "ID Order generated",
+            $status: "Pending"
+        },
+        updatePayment: {
+            $description: "Description of payment",
+            $status: "Pending"
         }
     }
   };

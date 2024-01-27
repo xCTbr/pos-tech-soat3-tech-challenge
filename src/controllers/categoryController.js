@@ -4,13 +4,7 @@ import useCaseFindById from '../use_cases/category/findById.js';
 import useCasedelete from '../use_cases/category/deleteById.js'
 import useCaseUpdateById from '../use_cases/category/updateById.js';
 
-export default function categoryController(
-  categoryRepository,
-  categoryRepositoryMongoDB,
-) {
-  //const dbRepository = categoryRepository(categoryRepositoryMongoDB());
-  const dbRepository = categoryRepository(categoryRepositoryMongoDB());
-
+export default function categoryController() {
   
 	const addNewCategory = (req, res, next) => {
 		console.log('controller category');
@@ -22,8 +16,7 @@ export default function categoryController(
 			categoryName,
       description,
       Date(),
-      Date(),
-      dbRepository
+      Date()
     )
     .then((category) => res.json(category))
     .catch((error) => res.json(next(`${error.message} - Category creation failed`)));
@@ -36,7 +29,7 @@ export default function categoryController(
   const fetchCategoryById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    useCaseFindById(req.params.id, dbRepository)
+    useCaseFindById(req.params.id)
       .then((category) => {
         if (!category) {
           //throw new Error(`No category found with id: ${req.params.id}`);
@@ -48,7 +41,7 @@ export default function categoryController(
   };
 
   const fetchAllCategory = (req, res, next) => {
-    useCasegetAll( dbRepository)
+    useCasegetAll()
       .then((category) => {
         if (!category) {
           //throw new Error(`No categorys found with id: ${req.params.id}`);
@@ -60,7 +53,7 @@ export default function categoryController(
   };
 
   const deleteCategoryById = (req, res, next) => {
-    useCasedelete(req.params.id, dbRepository)
+    useCasedelete(req.params.id)
       .then(() => res.json('Category sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -73,8 +66,7 @@ export default function categoryController(
       req.params.id,
       categoryName,
       description,
-      Date(),
-      dbRepository
+      Date()
     )
       .then((message) => res.json(message))
       .catch((error) => next(error));

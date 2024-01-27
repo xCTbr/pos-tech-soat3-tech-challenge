@@ -1,4 +1,7 @@
 import order from "../../entities/Order.js";
+import orderGateway from "../../application/orderGateway.js";
+
+const gateway = orderGateway();
 
 export default function createOrder(
     orderNumber,
@@ -7,8 +10,7 @@ export default function createOrder(
     totalOrderPrice,
     orderStatus,
     createdAt,
-    updatedAt,
-    dbRepository
+    updatedAt
 ){
 		//console.log('caso de uso - add custumer');
     if (!orderNumber || !customer || !orderProducts || !totalOrderPrice || !orderStatus) {
@@ -20,6 +22,6 @@ export default function createOrder(
     // const newOrder = order({id, name, cpf, email, phone, createdAt, updatedAt})
 		const newOrder = order(orderNumber, customer, orderProducts, totalOrderPrice, orderStatus, createdAt, updatedAt)
     
-    return dbRepository.add(newOrder);
+    return gateway.add(newOrder);
 		// return Promise.resolve('Joia')
 }

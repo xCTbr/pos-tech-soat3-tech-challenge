@@ -2,12 +2,9 @@ import mongoose from 'mongoose';
 
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;
-const CustomerSchema = new Schema({
-		// id: {type: String},
-		name: {type: String, required: true},
-		cpf: {type: String, required: true},
-		email: {type: String, required: true},
-		phone: {type: String, required: true},
+const StatusSchema = new Schema({
+	//statusName: {type: String, required: true},
+	description: {type: String, required: true}
 	},
 	{
 		timestamps: { 
@@ -22,7 +19,7 @@ const CustomerSchema = new Schema({
 
 // UserSchema.index({ role: 1 });
 
-const CustomerModel = mongoose.model('customers', CustomerSchema);
+const StatusModel = mongoose.model('status', StatusSchema);
 
 // UserModel.ensureIndexes((err) => {
 //   if (err) {
@@ -31,4 +28,4 @@ const CustomerModel = mongoose.model('customers', CustomerSchema);
 //   return true;
 // });
 
-export default CustomerModel;
+export default StatusModel;

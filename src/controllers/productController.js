@@ -4,13 +4,7 @@ import useCasefindById from '../use_cases/product/findById.js';
 import useCaseDelete from '../use_cases/product/deleteById.js'
 import useCaseUpdateById from '../use_cases/product/updateById.js';
 
-export default function productController(
-  productRepository,
-  productRepositoryMongoDB,
-) {
-  //const dbRepository = productRepository(productRepositoryMongoDB());
-  const dbRepository = productRepository(productRepositoryMongoDB());
-
+export default function productController() {
   
 	const addNewProduct = (req, res, next) => {
 		console.log('controller product');
@@ -24,8 +18,7 @@ export default function productController(
       quantity,
       price,
       Date(),
-      Date(),
-      dbRepository
+      Date()
     )
     .then((product) => res.json(product))
     .catch((error) => res.json(next(`${error.message} - Product creation failed`)));
@@ -38,7 +31,7 @@ export default function productController(
   const fetchProductById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    useCasefindById(req.params.id, dbRepository)
+    useCasefindById(req.params.id)
       .then((product) => {
         if (!product) {
           //throw new Error(`No product found with id: ${req.params.id}`);
@@ -50,7 +43,7 @@ export default function productController(
   };
 
   const fetchAllProduct = (req, res, next) => {
-    useCasegetAll( dbRepository)
+    useCasegetAll()
       .then((product) => {
         if (!product) {
           //throw new Error(`No products found with id: ${req.params.id}`);
@@ -62,7 +55,7 @@ export default function productController(
   };
 
   const deleteProductById = (req, res, next) => {
-    useCaseDelete(req.params.id, dbRepository)
+    useCaseDelete(req.params.id)
       .then(() => res.json('Product sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -77,8 +70,7 @@ export default function productController(
       category,
       quantity,
       price,
-      Date(),
-      dbRepository
+      Date()
     )
       .then((message) => res.json(message))
       .catch((error) => next(error));

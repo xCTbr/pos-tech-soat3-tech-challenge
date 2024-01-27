@@ -332,6 +332,109 @@
         }
       }
     },
+    "/status/": {
+      "get": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to list all categories.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to add status.",
+        "parameters": [
+          {
+            "name": "newStatus",
+            "in": "body",
+            "description": "Information status.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrderStatus"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/status/{id}": {
+      "get": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to get status by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateStatus",
+            "in": "body",
+            "description": "Information do status.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrderStatus"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to delete status by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/order/": {
       "get": {
         "tags": [
@@ -431,6 +534,74 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/payment/": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "Endpoint to add a payment.",
+        "parameters": [
+          {
+            "name": "newPayment",
+            "in": "body",
+            "description": "Information payment.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddPayment"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/payment/{id}": {
+      "put": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "Endpoint to update order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updatePayment",
+            "in": "body",
+            "description": "Information payment.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updatePayment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -615,11 +786,50 @@
       "properties": {
         "description": {
           "type": "string",
-          "example": "In Progress"
+          "example": "Waiting payment"
         }
       },
       "required": [
         "description"
+      ]
+    },
+    "AddPayment": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": "Description of payment"
+        },
+        "order": {
+          "type": "string",
+          "example": "ID Order generated"
+        },
+        "status": {
+          "type": "string",
+          "example": "Pending"
+        }
+      },
+      "required": [
+        "description",
+        "order",
+        "status"
+      ]
+    },
+    "updatePayment": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": "Description of payment"
+        },
+        "status": {
+          "type": "string",
+          "example": "Pending"
+        }
+      },
+      "required": [
+        "description",
+        "status"
       ]
     }
   }

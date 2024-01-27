@@ -4,16 +4,13 @@ import useCasefindById from '../use_cases/customer/findById.js';
 import useCasedelete from '../use_cases/customer/deleteById.js'
 import useCaseupdateById from '../use_cases/customer/updateById.js';
 
-export default function customerController(
-  customerRepository,
-  customerRepositoryMongoDB,
-) {
-  //const dbRepository = customerRepository(customerRepositoryMongoDB());
-  const dbRepository = customerRepository(customerRepositoryMongoDB());
+export default function customerController() {
+  
+//  const dbRepository = customerRepository(customerRepositoryMongoDB());
 
   
   const fetchAllCustomer = (req, res, next) => {
-    useCaseGetAll(dbRepository)
+    useCaseGetAll()
       .then((customer) => {
         if (!customer) {
           //throw new Error(`No customers found with id: ${req.params.id}`);
@@ -38,8 +35,7 @@ export default function customerController(
       phone,
 			skype,
       Date(),
-      Date(),
-      dbRepository
+      Date()
     )
     .then((customer) => res.json(customer))
     .catch((error) => res.json(next(`${error.message} - Customer creation failed`)));
@@ -52,7 +48,7 @@ export default function customerController(
   const fetchCustomerById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    useCasefindById(req.params.id, dbRepository)
+    useCasefindById(req.params.id)
       .then((customer) => {
         if (!customer) {
           //throw new Error(`No customer found with id: ${req.params.id}`);
@@ -65,7 +61,7 @@ export default function customerController(
 
 
   const deleteCustomerById = (req, res, next) => {
-    useCasedelete(req.params.id, dbRepository)
+    useCasedelete(req.params.id)
       .then(() => res.json('Customer sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -81,8 +77,7 @@ export default function customerController(
       email,
       phone,
 			skype,
-      Date(),
-      dbRepository
+      Date()
     )
       .then((message) => res.json(message))
       .catch((error) => next(error));

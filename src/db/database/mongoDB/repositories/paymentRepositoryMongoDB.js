@@ -1,0 +1,49 @@
+import PaymentModel from "../models/payment.js";
+
+export default function paymentRepositoryMongoDB() {
+
+	const add = async (paymentEntity) => {
+	
+		console.log('payment repository');
+		
+		const newPayment = await PaymentModel({
+			
+			description: paymentEntity.getDescription(),
+			order: paymentEntity.getOrder(),
+			status: paymentEntity.getStatus(),
+			createdAt: new Date()
+		})
+		
+		return newPayment.save();
+	};
+
+	const findAll = (params) => PaymentModel.find();
+    
+	const findById = (id) => PaymentModel.findById(id);
+
+	const deleteById = (id) => PaymentModel.findByIdAndRemove(id);
+	
+	const updateById = (id, paymentEntity) => {
+		const updatedPayment = {
+			description: paymentEntity.getDescription(),
+			//order: paymentEntity.getOrder(),
+			status: paymentEntity.getStatus(),
+			updatedAt: new Date()
+		};
+	console.log('payment-->',updatedPayment)
+		return PaymentModel.findOneAndUpdate(
+		  { _id: id },
+		  { $set: updatedPayment },
+		  { new: true }
+		);
+	  };
+
+	return {
+		findById,
+		findAll,
+		add,
+		updateById,
+		deleteById
+		
+	}
+}

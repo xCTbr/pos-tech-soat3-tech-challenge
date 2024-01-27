@@ -12,7 +12,7 @@ export default function customerRepositoryMongoDB() {
 			cpf: customerEntity.getCpf(),
 			email: customerEntity.getEmail(),
 			phone: customerEntity.getPhone(),
-			skype: customerEntity.getSkype(),
+			
 			createdAt: new Date()
 		})
 		
@@ -32,7 +32,6 @@ export default function customerRepositoryMongoDB() {
 			cpf: customerEntity.getCpf(),
 			email: customerEntity.getEmail(),
 			phone: customerEntity.getPhone(),
-			skype: customerEntity.getSkype(),
 			updatedAt: new Date()
 		};
 	

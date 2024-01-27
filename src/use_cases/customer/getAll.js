@@ -1,4 +1,7 @@
-export default function getAllCustomers(customerRepository) {
+import customerGateway from "../../application/customerGateway.js";
+const gateway = customerGateway();
+
+export default function getAllCustomers() {
 	//console.log(customerRepository);
-	return customerRepository.findAll();
+	return gateway.findAll();
 }

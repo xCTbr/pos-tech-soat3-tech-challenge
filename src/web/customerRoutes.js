@@ -1,14 +1,9 @@
 import customerController from "../controllers/customerController.js";
-import customerRepository from "../application/repositories/customerDBRepository.js";
-import customerRepositoryMongoDB from "../db/database/mongoDB/repositories/customerRepositoryMongoDB.js";
 
 
 export default function customerRoutes(express) {
 	const router = express.Router();
-	const controller = customerController(
-    customerRepository,
-    customerRepositoryMongoDB
-  );
+	const controller = customerController();
 
   //GET ENDPOINTS
   router.route('/').get(controller.fetchAllCustomer,

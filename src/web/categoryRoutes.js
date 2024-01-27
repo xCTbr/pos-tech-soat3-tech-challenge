@@ -1,14 +1,8 @@
 import categoryController from "../controllers/categoryController.js";
-import categoryRepository from "../application/repositories/categoryDBRepository.js";
-import categoryRepositoryMongoDB from "../db/database/mongoDB/repositories/categoryRepositoryMongoDB.js";
-
 
 export default function categoryRoutes(express) {
 	const router = express.Router();
-	const controller = categoryController(
-    categoryRepository,
-    categoryRepositoryMongoDB
-  );
+	const controller = categoryController();
 
   //GET ENDPOINTS
   router.route('/').get(controller.fetchAllCategory,

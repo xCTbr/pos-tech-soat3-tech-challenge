@@ -1,5 +1,8 @@
 //import product from '../../../src/entities/Product';
 import product from "../../entities/Product.js";
+import productGateway from "../../application/productGateway.js";
+
+const gateway = productGateway();
 
 export default function updateById(
     id,
@@ -7,9 +10,7 @@ export default function updateById(
     category,
     quantity,
     price,
-    //createAt,
-    updatedAt,
-    dbRepository
+    updatedAt
 ) {
     //console.log('Use Case update ->', name);
     
@@ -23,15 +24,14 @@ export default function updateById(
     category,
     quantity,
     price,
-    //createAt,
     updatedAt
   );
 
-  return dbRepository.findById(id).then((foundProduct) => {
+  return gateway.findById(id).then((foundProduct) => {
     if (!foundProduct) {
       //throw new Error(`No product found with id: ${id}`);
       return Promise.resolve(`No product found with id: ${id}`);
     }
-    return dbRepository.updateById(id, updatedProduct);
+    return gateway.updateById(id, updatedProduct);
   });
 }

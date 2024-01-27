@@ -4,13 +4,7 @@ import useCasedelete from '../use_cases/order/deleteById.js'
 import useCaseupdateById from '../use_cases/order/updateById.js';
 import useCaseGetAllOrders from '../use_cases/order/getAll.js';
 
-export default function orderController(
-  orderRepository,
-  orderRepositoryMongoDB,
-) {
-  //const dbRepository = orderRepository(orderRepositoryMongoDB());
-  const dbRepository = orderRepository(orderRepositoryMongoDB());
-
+export default function orderController() {
   
 	const addNewOrder = (req, res, next) => {
 		console.log('controller order');
@@ -25,8 +19,7 @@ export default function orderController(
 		totalOrderPrice,
 		orderStatus,
 		Date(),
-		Date(),
-		dbRepository
+		Date()
     )
     .then((order) => res.json(order))
     .catch((error) => res.json(next(`${error.message} - Order creation failed`)));
@@ -39,7 +32,7 @@ export default function orderController(
   const fetchOrderById = (req, res, next) => {
     //console.log('params by id-> ',req.params.id);
     //console.log('repository -> ',dbRepository);
-    useCasefindById(req.params.id, dbRepository)
+    useCasefindById(req.params.id)
       .then((order) => {
         if (!order) {
           //throw new Error(`No order found with id: ${req.params.id}`);
@@ -51,7 +44,7 @@ export default function orderController(
   };
 
   const fetchAllOrder = (req, res, next) => {
-    useCaseGetAllOrders( dbRepository)
+    useCaseGetAllOrders( )
       .then((order) => {
         if (!order) {
           //throw new Error(`No orders found with id: ${req.params.id}`);
@@ -63,7 +56,7 @@ export default function orderController(
   };
 
   const deleteOrderById = (req, res, next) => {
-    useCasedelete(req.params.id, dbRepository)
+    useCasedelete(req.params.id)
       .then(() => res.json('Order sucessfully deleted!'))
       .catch((error) => next(error));
   };
@@ -79,8 +72,7 @@ export default function orderController(
 		orderProducts,
 		totalOrderPrice,
 		orderStatus,
-		Date(),
-		dbRepository
+		Date()
     )
       .then((message) => res.json(message))
       .catch((error) => next(error));

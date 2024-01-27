@@ -3,7 +3,6 @@ export default function customer(
     cpf,
     email,
     phone,
-		skype,
     createdAt,
     updatedAt
   ) {
@@ -12,7 +11,6 @@ export default function customer(
       getCpf: () => cpf,
       getEmail: () => email,
       getPhone: () => phone,
-			getSkype: () => skype,
       getCreatedAt: () => createdAt,
       getUpdatedAt: () => updatedAt,
     };

@@ -1,13 +1,14 @@
-//import customer from '../../../src/entities/Customer';
 import category from "../../entities/Category.js";
+import categoryGateway from "../../application/categoryGateway.js";
+
+const gateway = categoryGateway();
 
 export default function updateById(
     id,
     categoryName,
     description,
     //createAt,
-    updatedAt,
-    dbRepository
+    updatedAt
 ) {
     //console.log('Use Case update ->', name);
     
@@ -23,11 +24,11 @@ export default function updateById(
     updatedAt
   );
 
-  return dbRepository.findById(id).then((foundCategory) => {
+  return gateway.findById(id).then((foundCategory) => {
     if (!foundCategory) {
       //throw new Error(`No customer found with id: ${id}`);
       return Promise.resolve(`No category found with id: ${id}`);
     }
-    return dbRepository.updateById(id, updatedCategory);
+    return gateway.updateById(id, updatedCategory);
   });
 }

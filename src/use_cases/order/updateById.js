@@ -1,5 +1,7 @@
-//import order from '../../../src/entities/Order';
 import order from "../../entities/Order.js";
+import orderGateway from "../../application/orderGateway.js";
+
+const gateway = orderGateway();
 
 export default function updateById(
     id,
@@ -8,8 +10,7 @@ export default function updateById(
     orderProducts, //array of products
     totalOrderPrice,
     orderStatus,
-    updatedAt,
-    dbRepository
+    updatedAt
 ) {
     //console.log('Use Case update ->', name);
     
@@ -27,11 +28,11 @@ export default function updateById(
     updatedAt,
   );
 
-  return dbRepository.findById(id).then((foundOrder) => {
+  return gateway.findById(id).then((foundOrder) => {
     if (!foundOrder) {
       //throw new Error(`No order found with id: ${id}`);
       return Promise.resolve(`No order found with id: ${id}`);
     }
-    return dbRepository.updateById(id, updatedOrder);
+    return gateway.updateById(id, updatedOrder);
   });
 }

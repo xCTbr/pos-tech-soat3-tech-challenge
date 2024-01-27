@@ -1,14 +1,8 @@
 import orderController from "../controllers/orderController.js";
-import orderRepository from "../application/repositories/orderDBRepository.js";
-import orderRepositoryMongoDB from "../db/database/mongoDB/repositories/orderRepositoryMongoDB.js";
-
 
 export default function orderRoutes(express) {
 	const router = express.Router();
-	const controller = orderController(
-    orderRepository,
-    orderRepositoryMongoDB
-  );
+	const controller = orderController();
 
   //GET ENDPOINTS
   router.route('/').get(controller.fetchAllOrder,

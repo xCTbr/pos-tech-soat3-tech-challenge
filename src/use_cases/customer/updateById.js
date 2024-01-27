@@ -1,5 +1,7 @@
-//import customer from '../../../src/entities/Customer';
 import customer from "../../entities/Customer.js";
+import customerGateway from "../../application/customerGateway.js";
+
+const gateway = customerGateway();
 
 export default function updateById(
     id,
@@ -7,10 +9,7 @@ export default function updateById(
     cpf,
     email,
     phone,
-	skype,
-    //createAt,
-    updatedAt,
-    dbRepository
+    updatedAt
 ) {
     //console.log('Use Case update ->', name);
     
@@ -24,16 +23,14 @@ export default function updateById(
     cpf,
     email,
     phone,
-	skype,
-    //createAt,
     updatedAt
   );
 
-  return dbRepository.findById(id).then((foundCustomer) => {
+  return gateway.findById(id).then((foundCustomer) => {
     if (!foundCustomer) {
       //throw new Error(`No customer found with id: ${id}`);
       return Promise.resolve(`No customer found with id: ${id}`);
     }
-    return dbRepository.updateById(id, updatedCustomer);
+    return gateway.updateById(id, updatedCustomer);
   });
 }
