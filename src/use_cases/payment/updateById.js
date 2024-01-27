@@ -17,7 +17,7 @@ export default function updateById(
       //console.log('status->', status)
       
       
-      return gateway.findById(id).then((foundPayment) => {
+      /*return gateway.findById(id).then((foundPayment) => {
           if (!foundPayment) {
             //throw new Error(`No customer found with id: ${id}`);
             return Promise.resolve(`No payment found with id: ${id}`);
@@ -36,5 +36,19 @@ export default function updateById(
             
           return gateway.updateById(id, updatedPayment);
           //console.log('retorno update',  updatedPayment)
-      });
+      });*/
+
+      const updatedPayment = payment(
+        description,
+        'order',
+        status,
+        'createdA',
+        updatedAt
+      );
+      //console.log('Use Case update ->', updatedPayment);
+      //console.log('found', updatedPayment)
+       
+      
+        
+      return gateway.updateById(id, updatedPayment);
   }

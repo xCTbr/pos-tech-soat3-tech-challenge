@@ -23,7 +23,7 @@ export default function paymentRepositoryMongoDB() {
 
 	const deleteById = (id) => PaymentModel.findByIdAndRemove(id);
 	
-	const updateById = (id, paymentEntity) => {
+	const updateById_old = (id, paymentEntity) => {
 		const updatedPayment = {
 			description: paymentEntity.getDescription(),
 			//order: paymentEntity.getOrder(),
@@ -35,6 +35,25 @@ export default function paymentRepositoryMongoDB() {
 		  { _id: id },
 		  { $set: updatedPayment },
 		  { new: true }
+		);
+	  };
+	  /*
+const CPF = req.query.CPF;
+			const customerCpfFound = await customer.find({'cpf':CPF},{});
+			res.status(200).json(customerCpfFound);
+	  */
+	  const updateById = (id, paymentEntity) => {
+		const updatedPayment = {
+			description: paymentEntity.getDescription(),
+			//order: paymentEntity.getOrder(),
+			status: paymentEntity.getStatus(),
+			updatedAt: new Date()
+		};
+	console.log('payment-->',updatedPayment)
+		return PaymentModel.findOneAndUpdate(
+		  { 'order': id },
+		  { $set: updatedPayment },
+		  { new: false }
 		);
 	  };
 

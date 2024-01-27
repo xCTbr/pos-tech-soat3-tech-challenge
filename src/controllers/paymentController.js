@@ -38,9 +38,10 @@ export default function paymentController() {
   const updatePaymentById = (req, res, next) => {
     const {description,status} = req.body;
 
+    const id = req.params.orderid;
     console.log('controller update by id->',req.body);
     useCaseUpdateById(
-      req.params.id,
+      id,
       description,
       status,
       Date()

@@ -30,9 +30,9 @@ export default function paymentRoutes(express) {
     );
 
      //PUT ENDPOINTS
-  router.route('/:id').put(controller.updatePaymentById,
+  router.route('/:orderid').put(controller.updatePaymentById,
     // #swagger.tags = ['Payment']
-		// #swagger.description = 'Endpoint to update order by ID.'
+		// #swagger.description = 'Endpoint to update order by ID ORDER.'
 		
 		/* #swagger.parameters['updatePayment'] = {
                in: 'body',

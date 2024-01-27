@@ -573,15 +573,15 @@
         }
       }
     },
-    "/payment/{id}": {
+    "/payment/{orderid}": {
       "put": {
         "tags": [
           "Payment"
         ],
-        "description": "Endpoint to update order by ID.",
+        "description": "Endpoint to update order by ID ORDER.",
         "parameters": [
           {
-            "name": "id",
+            "name": "orderid",
             "in": "path",
             "required": true,
             "type": "string"
@@ -597,11 +597,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
