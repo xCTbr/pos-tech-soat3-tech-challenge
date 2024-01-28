@@ -4,16 +4,14 @@ export default function orderRepositoryMongoDB() {
 
 	const add = async (orderEntity) => {
 	
-		console.log('order repository');
-		
-		
 		const newOrder = await OrderModel({
 			orderNumber: orderEntity.getOrderNumber(),
 			customer: orderEntity.getCustomer(),
 			orderProducts: orderEntity.getOrderProducts(),
 			totalOrderPrice: orderEntity.getTotalOrderPrice(),
 			orderStatus: orderEntity.getOrderStatus(),
-			createdAt: new Date()
+			createdAt: new Date(),
+			orderProductsDescription: orderEntity.getOrderProductsDescription()
 		})
 		
 		return newOrder.save();

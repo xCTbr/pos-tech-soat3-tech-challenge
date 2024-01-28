@@ -6,16 +6,11 @@ import productRoutes from './productRoutes.js';
 import orderRoutes from './orderRoutes.js';
 import paymentRoutes from './paymentRoutes.js';
 import statusRoutes from './statusRoutes.js';
+import webhookRoutes from './webHookRoutes.js';
 
 import bodyParser from "body-parser";
 
 export default function routes(app, express){
-  
-  //app.use(express.json());
-  //app.use(bodyParser.urlencoded({ extended: true }));
-  //app.use(bodyParser.json());
-  //app.use(express.urlencoded({ extended: true }))
-  // Middleware to parse JSON in the request body
   app.use(bodyParser.json());
   app.use('/customer', customerRoutes(express));
   app.use('/category', categoryRoutes(express));
@@ -23,6 +18,7 @@ export default function routes(app, express){
   app.use('/status', statusRoutes(express));
   app.use('/order', orderRoutes(express));
   app.use('/payment', paymentRoutes(express));
+	app.use('/webhook', webhookRoutes(express));
 
   //app.route("/").get((req, res) => res.status(200).send("Sistema de pedidos"));
 

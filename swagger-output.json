@@ -602,6 +602,16 @@
           }
         }
       }
+    },
+    "/webhook/": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   },
   "definitions": {
