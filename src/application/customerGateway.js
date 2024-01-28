@@ -3,6 +3,7 @@ import customerRepositoryMongoDB from "../db/database/mongoDB/repositories/custo
 export default function customerGateway() {
     
 	const findById = (id) => customerRepositoryMongoDB().findById(id);
+	const findByCPF = (cpf) => customerRepositoryMongoDB().findByCPF(cpf);
 	const add = (customer) => customerRepositoryMongoDB().add(customer);
 	const findAll = () => customerRepositoryMongoDB().findAll();
 	const updateById = (id, customer) => customerRepositoryMongoDB().updateById(id, customer);
@@ -13,6 +14,7 @@ export default function customerGateway() {
 		findAll,
 		add,
 		updateById,
-		deleteById		
+		deleteById,
+		findByCPF		
 	}
 }

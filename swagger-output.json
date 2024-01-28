@@ -11,6 +11,27 @@
     "http"
   ],
   "paths": {
+    "/customer/{cpf}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get customer by CPF.",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/customer/": {
       "get": {
         "tags": [
@@ -59,25 +80,6 @@
       }
     },
     "/customer/{id}": {
-      "get": {
-        "tags": [
-          "Customer"
-        ],
-        "description": "Endpoint to get customer by ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
       "put": {
         "tags": [
           "Customer"

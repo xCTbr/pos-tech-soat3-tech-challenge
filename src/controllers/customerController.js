@@ -3,11 +3,13 @@ import useCaseGetAll from '../use_cases/customer/getAll.js'
 import useCasefindById from '../use_cases/customer/findById.js';
 import useCasedelete from '../use_cases/customer/deleteById.js'
 import useCaseupdateById from '../use_cases/customer/updateById.js';
+import useCasefindByCPF from '../use_cases/customer/findByCPF.js'
 
 export default function customerController() {
   
 //  const dbRepository = customerRepository(customerRepositoryMongoDB());
 
+console.log('controller customer')
   
   const fetchAllCustomer = (req, res, next) => {
     useCaseGetAll()
@@ -33,7 +35,6 @@ export default function customerController() {
       cpf,
       email,
       phone,
-			skype,
       Date(),
       Date()
     )
@@ -57,6 +58,24 @@ export default function customerController() {
         res.json(customer);
       })
       .catch((error) => next(error));
+  };
+
+  const fetchCustomerByCPF = (req, res, next) => {
+    //console.log('params by id-> ',req.body);
+    //return res.json('fdsfa');
+    //console.log('repository -> ',dbRepository);
+    //const cpf = req.query.cpf;
+    //req.params.cpf
+    console.log('cpf----->',req.params.cpf)
+    useCasefindByCPF(req.params.cpf)
+      .then((customer) => {
+        if (!customer) {
+          //throw new Error(`No customer found with id: ${req.params.id}`);
+          res.json(`No customer found with cpf: ${req.params.cpf}`);
+        }
+        res.json(customer);
+      })
+      .catch((error) => next(res.json(error)));
   };
 
 
@@ -89,6 +108,7 @@ export default function customerController() {
     fetchAllCustomer,
     fetchCustomerById,
     updateCustomerById,
-    deleteCustomerById
+    deleteCustomerById,
+    fetchCustomerByCPF
   };
 }

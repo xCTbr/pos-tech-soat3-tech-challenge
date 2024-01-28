@@ -5,6 +5,17 @@ export default function customerRoutes(express) {
 	const router = express.Router();
 	const controller = customerController();
 
+  
+  /*router.route('/:id').get(controller.fetchCustomerById,
+    // swagger.tags = ['Customer']
+    // swagger.description = 'Endpoint to get customer by ID.'
+
+    );*/
+    router.route('/:cpf').get(controller.fetchCustomerByCPF,
+      // #swagger.tags = ['Customer']
+      // #swagger.description = 'Endpoint to get customer by CPF.'
+
+      );
   //GET ENDPOINTS
   router.route('/').get(controller.fetchAllCustomer,
     // #swagger.tags = ['Customer']
@@ -13,12 +24,8 @@ export default function customerRoutes(express) {
      schema: { msg: "Customers not found." } 
   } */
   );
-  router.route('/:id').get(controller.fetchCustomerById,
-    // #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to get customer by ID.'
-
-    );
- 
+  
+    
   //POST ENDPOINTS
   router.route('/').post(controller.addNewCustomer,
     // #swagger.tags = ['Customer']

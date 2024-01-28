@@ -22,6 +22,8 @@ export default function customerRepositoryMongoDB() {
 	const findAll = (params) => CustomerModel.find();
     
 	const findById = (id) => CustomerModel.findById(id);
+	
+	const findByCPF = (cpf) => CustomerModel.findOne({ 'cpf': cpf });
 	//const findById = (id) => CustomerModel.findById(id).select('-password');
 
 	const deleteById = (id) => CustomerModel.findByIdAndRemove(id);
@@ -47,7 +49,8 @@ export default function customerRepositoryMongoDB() {
 		findAll,
 		add,
 		updateById,
-		deleteById
+		deleteById,
+		findByCPF
 		
 	}
 }

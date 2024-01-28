@@ -37,11 +37,8 @@ export default function paymentRepositoryMongoDB() {
 		  { new: true }
 		);
 	  };
-	  /*
-const CPF = req.query.CPF;
-			const customerCpfFound = await customer.find({'cpf':CPF},{});
-			res.status(200).json(customerCpfFound);
-	  */
+	  
+	  //ID Order
 	  const updateById = (id, paymentEntity) => {
 		const updatedPayment = {
 			description: paymentEntity.getDescription(),
