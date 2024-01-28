@@ -4,5 +4,5 @@ async function connectDatabase() {
   mongoose.connect("" +process.env.DB_CONNECTION_STRING);
   return mongoose.connection;
 };
-//console.log("conexao feita");
+
 export default connectDatabase;

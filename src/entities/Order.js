@@ -5,7 +5,8 @@ export default function order(
     totalOrderPrice,
     orderStatus,
     createdAt,
-    updatedAt
+    updatedAt,
+		orderProductsDescription,
   ) {
     return {
       getOrderNumber: () => orderNumber,
@@ -15,5 +16,6 @@ export default function order(
       getOrderStatus: () => orderStatus,
       getCreatedAt: () => createdAt,
       getUpdatedAt: () => updatedAt,
+			getOrderProductsDescription: () => orderProductsDescription,
     };
   }

@@ -1,26 +1,20 @@
 import paymentController from "../controllers/paymentController.js";
-//import paymentRepository from "../application/paymentGateway.js";
-//import paymentRepositoryMongoDB from "../db/database/mongoDB/repositories/paymentRepositoryMongoDB.js";
-
 
 export default function paymentRoutes(express) {
 	const router = express.Router();
-	const controller = paymentController(
-    //paymentRepository,
-    //paymentRepositoryMongoDB
-  );
+	const controller = paymentController();
 
   router.route('/').get(controller.fetchAllPayment,
-    // #swagger.tags = ['Payment']
-		// #swagger.description = 'Endpoint to list al
+    // swagger.tags = ['Payment']
+		// swagger.description = 'Endpoint to list al
     );
 
   //POST ENDPOINTS
   router.route('/').post(controller.addNewPayment,
-    // #swagger.tags = ['Payment']
-		// #swagger.description = 'Endpoint to add a payment.'
+    // swagger.tags = ['Payment']
+		// swagger.description = 'Endpoint to add a payment.'
 
-		/* #swagger.parameters['newPayment'] = {
+		/* swagger.parameters['newPayment'] = {
                in: 'body',
                description: 'Information payment.',
                required: true,
@@ -31,10 +25,10 @@ export default function paymentRoutes(express) {
 
      //PUT ENDPOINTS
   router.route('/:orderid').put(controller.updatePaymentById,
-    // #swagger.tags = ['Payment']
-		// #swagger.description = 'Endpoint to update order by ID ORDER.'
+    // swagger.tags = ['Payment']
+		// swagger.description = 'Endpoint to update order by ID ORDER.'
 		
-		/* #swagger.parameters['updatePayment'] = {
+		/* swagger.parameters['updatePayment'] = {
                in: 'body',
                description: 'Information payment.',
 			   required: true,
