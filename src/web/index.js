@@ -17,7 +17,9 @@ export default function routes(app, express){
   app.use('/product', productRoutes(express));
   app.use('/status', statusRoutes(express));
   app.use('/order', orderRoutes(express));
-  app.use('/payment', paymentRoutes(express));
+	// v.1 manual payment
+  // app.use('/payment', paymentRoutes(express));
+	// v.2 automated payment
 	app.use('/webhook', webhookRoutes(express));
 
   //app.route("/").get((req, res) => res.status(200).send("Sistema de pedidos"));

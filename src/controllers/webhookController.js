@@ -8,41 +8,35 @@ export default function webhookController() {
 	const webHookHandler = async (req, res, next) => {
 		const merchantOrder = new MerchantOrder(seller);
 		console.log('webHookHandler, ', req.query);
-		const paymentOrder = req.query.id || req.query.data_id;
+		const paymentOrder = req.query.id;
 		console.log('paymentOrder', paymentOrder);
+		if (Object.keys(req.query).length === 0) return res.status(400).json({ message: 'Invalid webhook request. No query params found' });
 
-		// if (paymentOrder) {
-		// 	const orderStatus = await merchantOrder.get({  merchantOrderId: paymentOrder })
-		// 	.then((order) => {
-		// 		if (order.status === 'closed' && order.order_status === 'paid') {
-		// 			return {
-		// 				id: order.id,
-		// 				status: 'approved',
-		// 				internal_order_id: order.external_reference 
-		// 			}
-		// 		}
-		// 		else if (order.status === 'opened' && order.order_status === 'payment_required') {
-		// 			return {
-		// 				id: order.id,
-		// 				status: 'pending',
-		// 				internal_order_id: order.external_reference 
-		// 			}
-		// 		}
-		// 	})
-		// 	.catch(console.log);
+		const orderStatus = await merchantOrder.get({  merchantOrderId: paymentOrder })
+		.then((order) => {
+			if (order?.status === 'closed' && order?.order_status === 'paid') {
+				return {
+					id: order.id,
+					status: 'approved',
+					internal_order_id: order.external_reference 
+				}
+			}
+			else if (order?.status === 'opened' && order?.order_status === 'payment_required') {
+				return {
+					id: order.id,
+					status: 'pending',
+					internal_order_id: order.external_reference 
+				}
+			}
+		})
+		.catch((err) => console.log('err ', err));
+		console.log('orderStatus with resumo', orderStatus);
 
-		// 	console.log('orderStatus', orderStatus); // return orderStatus
-		// 	// in another place add following code to update order
-
-		// 	// vincular automaticamente o status quando recebe notificacao de que foi pago
-		// 	const statusList = await useCaseStatusAll();
-		// 	const updatedStatus = statusList.find(status => status.description === 'received');
-		// 	console.log('updatedStatus', updatedStatus);
-
-		// 	if (orderStatus.status === 'approved') {
-		// 		updateStatusById(orderStatus.internal_order_id, updatedStatus.id, Date());
-		// 	}
-		// }
+		if (orderStatus && orderStatus.status === 'approved') {
+			const statusList = await useCaseStatusAll();
+			const getStatusReceivedId = statusList.find(status => status.description === 'received');
+			updateStatusById(orderStatus.internal_order_id, getStatusReceivedId.id);
+		}
 	};
 
 	return {

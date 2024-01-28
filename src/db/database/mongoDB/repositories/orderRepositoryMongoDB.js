@@ -17,9 +17,9 @@ export default function orderRepositoryMongoDB() {
 		return newOrder.save();
 	};
 
-	const findAll = (params) => OrderModel.find();
+	const findAll = (params) => OrderModel.find().populate('orderStatus').populate('customer').populate('orderProducts.product');
     
-	const findById = (id) => OrderModel.findById(id);
+	const findById = (id) => OrderModel.findById(id).populate('orderStatus').populate('customer').populate('orderProducts.product');
 
 	const deleteById = (id) => OrderModel.findByIdAndRemove(id);
 	
@@ -38,14 +38,27 @@ export default function orderRepositoryMongoDB() {
 		  { $set: updatedOrder },
 		  { new: true }
 		);
-	  };
+	};
+
+	const updateStatusById = (id, status) => {
+		const updatedOrder = {
+			orderStatus: status,
+			updatedAt: new Date()
+		};
+	
+		return OrderModel.findOneAndUpdate(
+			{ _id: id },
+			{ $set: updatedOrder },
+			{ new: true }
+		);
+	};
 
 	return {
 		findById,
 		findAll,
 		add,
 		updateById,
-		deleteById
-		
+		deleteById,
+		updateStatusById		
 	}
 }

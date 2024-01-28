@@ -5,8 +5,8 @@ import useCaseupdateById from '../use_cases/order/updateById.js';
 import useCaseGetAllOrders from '../use_cases/order/getAll.js';
 import useCaseStatusAll from '../use_cases/status/getAll.js';
 import addPayment from '../use_cases/payment/addMercadoPago.js';
-
-const webhookURL = 'https://webhook.site/16e68407-aaf9-47c3-8542-6f34d7a35b53';
+import useCaseUpdateStatusById from '../use_cases/order/updateStatusById.js';
+import { webhookURL } from '../config/webhookConfig.js';
 
 export default function orderController() {
   
@@ -15,7 +15,7 @@ export default function orderController() {
 
 		// vincular automaticamente o status
 		const statusList = await useCaseStatusAll();
-		const initialStatus = statusList.find(status => status.description === 'Pending' || status.description === 'payment_required');
+		const initialStatus = statusList.find(status => status.description === 'pending' || status.description === 'payment_required');
 
 		//calcular o total do pedido
 		const totalOrderPrice = orderProductsDescription.reduce((total, product) => total + product.productTotalPrice, 0);
@@ -101,16 +101,24 @@ export default function orderController() {
 		orderStatus,
 		Date()
     )
-      .then((message) => res.json(message))
-      .catch((error) => next(error));
+		.then((message) => res.json(message))
+		.catch((error) => next(error));
       
   };
+
+	const updateStatusById = (req, res, next) => {
+		const id = req.params.id;
+		const {orderStatus} = req.body;
+
+		useCaseUpdateStatusById(id, orderStatus).then((message) => res.json(message)).catch((error) => next(error));
+	};
   //console.log('Controller final',dbRepository);
   return {
-	addNewOrder,
+		addNewOrder,
     fetchAllOrder,
     fetchOrderById,
     updateOrderById,
-    deleteOrderById
+    deleteOrderById,
+		updateStatusById,
   };
 }

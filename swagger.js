@@ -53,12 +53,22 @@ const document = {
                     productID: "ID product"
                 }
             ],
+						$orderProductsDescription: [{
+							productId: "ID product",
+							productDescription: "prod a",
+							productPrice: 2,
+							productQuantity: 5,
+							productTotalPrice: 10						
+						}],
             $totalOrderPrice: 10.00,
             $orderStatus: "ID Status"
         },
         AddOrderStatus:{
             $description: "Waiting payment"
         },
+				UpdateOrderStatus:{
+						$orderStatus: "ID new status"
+				},
         AddPayment: {
             $description: "Description of payment",
             $order: "ID Order generated",

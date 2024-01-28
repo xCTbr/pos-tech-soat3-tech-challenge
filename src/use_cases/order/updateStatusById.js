@@ -24,6 +24,6 @@ export default function updateStatusById(
       //throw new Error(`No order found with id: ${id}`);
       return Promise.resolve(`No order found with id: ${id}`);
     }
-    return gateway.updateById(id, updatedOrder);
+    return gateway.updateStatusById(id, orderStatus);
   });
 }

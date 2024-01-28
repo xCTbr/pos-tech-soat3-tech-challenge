@@ -538,61 +538,26 @@
         }
       }
     },
-    "/payment/": {
-      "get": {
-        "tags": [
-          "Payment"
-        ],
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Payment"
-        ],
-        "description": "Endpoint to add a payment.",
-        "parameters": [
-          {
-            "name": "newPayment",
-            "in": "body",
-            "description": "Information payment.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddPayment"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/payment/{orderid}": {
+    "/order/statusOrder/{id}": {
       "put": {
         "tags": [
-          "Payment"
+          "Order"
         ],
-        "description": "Endpoint to update order by ID ORDER.",
+        "description": "Endpoint to update status order by ID.",
         "parameters": [
           {
-            "name": "orderid",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "updatePayment",
+            "name": "updateOrder",
             "in": "body",
-            "description": "Information payment.",
+            "description": "Information order.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/updatePayment"
+              "$ref": "#/definitions/UpdateOrderStatus"
             }
           }
         ],
@@ -605,7 +570,10 @@
     },
     "/webhook/": {
       "post": {
-        "description": "",
+        "tags": [
+          "Webhook"
+        ],
+        "description": "Endpoint used to webhook payment automation.",
         "responses": {
           "default": {
             "description": ""
@@ -771,6 +739,34 @@
             }
           }
         },
+        "orderProductsDescription": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": {
+                "type": "string",
+                "example": "ID product"
+              },
+              "productDescription": {
+                "type": "string",
+                "example": "prod a"
+              },
+              "productPrice": {
+                "type": "number",
+                "example": 2
+              },
+              "productQuantity": {
+                "type": "number",
+                "example": 5
+              },
+              "productTotalPrice": {
+                "type": "number",
+                "example": 10
+              }
+            }
+          }
+        },
         "totalOrderPrice": {
           "type": "number",
           "example": 10
@@ -784,6 +780,7 @@
         "orderNumber",
         "customer",
         "orderProducts",
+        "orderProductsDescription",
         "totalOrderPrice",
         "orderStatus"
       ]
@@ -798,6 +795,18 @@
       },
       "required": [
         "description"
+      ]
+    },
+    "UpdateOrderStatus": {
+      "type": "object",
+      "properties": {
+        "orderStatus": {
+          "type": "string",
+          "example": "ID new status"
+        }
+      },
+      "required": [
+        "orderStatus"
       ]
     },
     "AddPayment": {
