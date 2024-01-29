@@ -18,5 +18,5 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: MONGO_URI
-              value: "mongodb://mongodb:27017/pos-tech-app"
+            - name: DB_CONNECTION_STRING
+              value: "mongodb+srv://service_user:GVnbkZ0jX7vTjVHy@cluster0.fc6vkfq.mongodb.net/?retryWrites=true&w=majority"

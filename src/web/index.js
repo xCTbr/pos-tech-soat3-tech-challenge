@@ -6,7 +6,7 @@ import productRoutes from './productRoutes.js';
 import orderRoutes from './orderRoutes.js';
 import paymentRoutes from './paymentRoutes.js';
 import statusRoutes from './statusRoutes.js';
-import webhookRoutes from './webHookRoutes.js';
+import webhookRoutes from '../web/webhookRoutes.js';
 
 import bodyParser from "body-parser";
 
