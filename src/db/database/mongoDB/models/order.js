@@ -8,14 +8,7 @@ const OrderSchema = new Schema({
 	//orderProducts: {type : Array , "default":{type: mongoose.Schema.Types.ObjectId, ref:'product'},
 	orderProducts: {type: Array, "":[mongoose.Schema.Types.ObjectId], ref: 'product'},
 	totalOrderPrice: {type: Number, required: true},
-	orderStatus: {type: mongoose.Schema.Types.ObjectId, ref:'status', required: true},
-	orderProductsDescription: [{
-		productId: {type: mongoose.Schema.Types.ObjectId},
-		productDescription: {type: String},
-		productPrice: {type: Number},
-		productQuantity: {type: Number},
-		productTotalPrice: {type: Number},
-	}],
+	orderStatus: {type: mongoose.Schema.Types.ObjectId, ref:'status', required: true}
 	},
 	{
 		timestamps: { 
@@ -28,6 +21,15 @@ const OrderSchema = new Schema({
 	}
 );
 
+// UserSchema.index({ role: 1 });
+
 const OrderModel = mongoose.model('orders', OrderSchema);
+
+// UserModel.ensureIndexes((err) => {
+//   if (err) {
+//     return err;
+//   }
+//   return true;
+// });
 
 export default OrderModel;
