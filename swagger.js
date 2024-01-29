@@ -48,23 +48,15 @@ const document = {
         AddOrder: {
             $orderNumber: "1",
             $customer: "ID Customer",
-            $orderProducts: [
-                {
-                    productID: "ID product"
-                }
-            ],
 						$orderProductsDescription: [{
 							productId: "ID product",
-							productDescription: "prod a",
-							productPrice: 2,
-							productQuantity: 5,
-							productTotalPrice: 10						
+							productQuantity: 5			
 						}],
             $totalOrderPrice: 10.00,
             $orderStatus: "ID Status"
         },
         AddOrderStatus:{
-            $description: "Waiting payment"
+            $description: "pending"
         },
 				UpdateOrderStatus:{
 						$orderStatus: "ID new status"
