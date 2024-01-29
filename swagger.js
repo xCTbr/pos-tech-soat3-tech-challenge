@@ -4,7 +4,7 @@ const document = {
       title: 'API Sistema de pedidos',
       description: 'Pos-Tech 3SOAT'
     },
-    host: 'localhost:3000',
+    host: 'localhost:80',
     definitions: {
         Parents: {
             father: "Simon Doe",
