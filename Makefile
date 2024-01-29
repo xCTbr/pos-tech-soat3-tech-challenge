@@ -1,10 +1,12 @@
 deploy:
 	@kubectl apply -f deployment.yml
+	@kubectl apply -f hpa.yml
 	@kubectl apply -f service.yml
 
 
 undeploy:
 	@kubectl delete service app-service
+	@kubectl delete hpa app-hpa
 	@kubectl delete deployment app-deployment
 
 

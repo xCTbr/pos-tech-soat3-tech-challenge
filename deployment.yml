@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: app
@@ -20,3 +20,10 @@ spec:
           env:
             - name: DB_CONNECTION_STRING
               value: "mongodb+srv://service_user:GVnbkZ0jX7vTjVHy@cluster0.fc6vkfq.mongodb.net/?retryWrites=true&w=majority"
+          resources:
+            limits:
+              cpu: "500m"  # 500 milicores
+              memory: "512Mi"  # 512 Mebibytes
+            requests:
+              cpu: "200m"  # 200 milicores
+              memory: "256Mi"  # 256 Mebibytes
