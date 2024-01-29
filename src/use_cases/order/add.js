@@ -6,18 +6,19 @@ const gateway = orderGateway();
 export default function createOrder(
     orderNumber,
     customer,
-    orderProducts, //array of products
+    // orderProducts, //array of products
     totalOrderPrice,
     orderStatus,
+		orderProductsDescription,
     createdAt,
 		updatedAt,
-		orderProductsDescription,
 ){
-    if (!orderNumber || !customer || !orderProducts || !totalOrderPrice || !orderStatus) {
+    if (!orderNumber || !customer || !totalOrderPrice || !orderStatus || !orderProductsDescription) {
       return Promise.resolve(`Order Number, Customer, Total Order Price and Order Status fields cannot be empty`);
     } 
+		console.log('usecase ', { orderNumber, customer, totalOrderPrice, orderStatus, orderProductsDescription, createdAt, updatedAt });
 
-		const newOrder = order(orderNumber, customer, orderProducts, totalOrderPrice, orderStatus, createdAt, updatedAt, orderProductsDescription);
+		const newOrder = order(orderNumber, customer, totalOrderPrice, orderStatus, orderProductsDescription, createdAt, updatedAt);
     
     return gateway.add(newOrder);
 }

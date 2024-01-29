@@ -6,40 +6,66 @@ import useCaseGetAllOrders from '../use_cases/order/getAll.js';
 import useCaseStatusAll from '../use_cases/status/getAll.js';
 import addPayment from '../use_cases/payment/addMercadoPago.js';
 import useCaseUpdateStatusById from '../use_cases/order/updateStatusById.js';
+import useCaseGetProductById from '../use_cases/product/findById.js';
 import { webhookURL } from '../config/webhookConfig.js';
 
 export default function orderController() {
   
 	const addNewOrder = async (req, res, next) => {
-    const { orderNumber, customer, orderProducts, orderProductsDescription } = req.body;
+    const { orderNumber, customer, orderProductsDescription } = req.body;
+		console.log(req.body);
 
 		// vincular automaticamente o status
 		const statusList = await useCaseStatusAll();
 		const initialStatus = statusList.find(status => status.description === 'pending' || status.description === 'payment_required');
 
+		//build complete product
+		// atualiza produtos a partir de orderProducts
+		const orderProductsList = await Promise.all(orderProductsDescription.map(async (product) => {
+			const productDetails = await useCaseGetProductById(product.productId);
+			return {
+				productId: product.productId,
+				productPrice: productDetails.price,
+				productQuantity: product.productQuantity,
+				productTotalPrice: productDetails.price * product.productQuantity,
+				productName: productDetails.productName
+			}
+		}));
+
 		//calcular o total do pedido
-		const totalOrderPrice = orderProductsDescription.reduce((total, product) => total + product.productTotalPrice, 0);
+		const totalOrderPrice = orderProductsList.reduce((total, product) => total + product.productTotalPrice, 0);
 
 		// build data payment body
-		const itemsList = orderProductsDescription.map(product => {	
+		const itemsList = orderProductsList.map(product => {	
 			return {
-				title: `Produto ${product.productId}`,
+				title: `Produto ${product.productName} ${product.productId}`,
 				unit_price: product.productPrice,
 				quantity: product.productQuantity,
 				total_amount: product.productTotalPrice,
 				unit_measure: 'unit'
 			}
 		});
+		console.log('lista completa dos produtos ', orderProductsList);
+
+		// persistir o pedido
+		const buildCreateBody = {
+			orderNumber,
+			customer,
+			totalOrderPrice,
+			initialStatus: initialStatus.id,
+			orderProductsDescription,
+		}
+		console.log('body completo ', buildCreateBody);
+		console.log('item para pagamento ', itemsList);
 
     useCaseCreate(
 		orderNumber,
 		customer,
-		orderProducts,
 		totalOrderPrice,
-		initialStatus,
+		initialStatus.id,
+		orderProductsDescription,
 		Date(),
-		Date(),
-		orderProductsDescription
+		Date()
     )
     .then((order) => {
 			const data = {
@@ -75,10 +101,13 @@ export default function orderController() {
     useCaseGetAllOrders( )
       .then((order) => {
         if (!order) {
-          //throw new Error(`No orders found with id: ${req.params.id}`);
           res.json(`No order found`);
         }
-        res.json(order);
+				const statusDoneList = order.filter(order => order.orderStatus?.description === 'done').sort((a, b) => b.createdAt - a.createdAt);
+				const statusInProgressList = order.filter(order => order.orderStatus?.description === 'in_progress').sort((a, b) => b.createdAt - a.createdAt);
+				const statusReceivedList = order.filter(order => order.orderStatus?.description === 'received').sort((a, b) => b.createdAt - a.createdAt);
+
+        res.json([...statusDoneList, ...statusInProgressList, ...statusReceivedList]);
       })
       .catch((error) => next(error));
   };

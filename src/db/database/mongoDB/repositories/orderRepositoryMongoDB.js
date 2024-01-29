@@ -7,19 +7,19 @@ export default function orderRepositoryMongoDB() {
 		const newOrder = await OrderModel({
 			orderNumber: orderEntity.getOrderNumber(),
 			customer: orderEntity.getCustomer(),
-			orderProducts: orderEntity.getOrderProducts(),
+			// orderProducts: orderEntity.getOrderProducts(),
 			totalOrderPrice: orderEntity.getTotalOrderPrice(),
 			orderStatus: orderEntity.getOrderStatus(),
+			orderProductsDescription: orderEntity.getOrderProductsDescription(),
 			createdAt: new Date(),
-			orderProductsDescription: orderEntity.getOrderProductsDescription()
 		})
 		
 		return newOrder.save();
 	};
 
-	const findAll = (params) => OrderModel.find().populate('orderStatus').populate('customer').populate('orderProducts.product');
+	const findAll = (params) => OrderModel.find().populate('orderStatus').populate('customer');
     
-	const findById = (id) => OrderModel.findById(id).populate('orderStatus').populate('customer').populate('orderProducts.product');
+	const findById = (id) => OrderModel.findById(id).populate('orderStatus').populate('customer');
 
 	const deleteById = (id) => OrderModel.findByIdAndRemove(id);
 	
@@ -27,9 +27,10 @@ export default function orderRepositoryMongoDB() {
 		const updatedOrder = {
 			orderNumber: orderEntity.getOrderNumber(),
 			customer: orderEntity.getCustomer(),
-			orderProducts: orderEntity.getOrderProducts(),
+			// orderProducts: orderEntity.getOrderProducts(),
 			totalOrderPrice: orderEntity.getTotalOrderPrice(),
 			orderStatus: orderEntity.getOrderStatus(),
+			orderProductsDescription: orderEntity.getOrderProductsDescription(),
 			updatedAt: new Date()
 		};
 	
