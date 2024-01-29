@@ -39,6 +39,19 @@ export default function orderRoutes(express) {
         } */
     );
 
+	//PUT ENDPOINTS
+	router.route('/statusOrder/:id').put(controller.updateStatusById,
+		// #swagger.tags = ['Order']
+		// #swagger.description = 'Endpoint to update status order by ID.'
+		
+		/* #swagger.parameters['updateOrder'] = {
+								in: 'body',
+								description: 'Information order.',
+					required: true,
+								schema: { $ref: "#/definitions/UpdateOrderStatus" }
+				} */
+	);
+
   //DELETE ENDPOINTS
   router.route('/:id').delete(controller.deleteOrderById,
     // #swagger.tags = ['Order']
