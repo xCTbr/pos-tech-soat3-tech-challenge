@@ -16,7 +16,6 @@ export default function createOrder(
     if (!orderNumber || !customer || !totalOrderPrice || !orderStatus || !orderProductsDescription) {
       return Promise.resolve(`Order Number, Customer, Total Order Price and Order Status fields cannot be empty`);
     } 
-		console.log('usecase ', { orderNumber, customer, totalOrderPrice, orderStatus, orderProductsDescription, createdAt, updatedAt });
 
 		const newOrder = order(orderNumber, customer, totalOrderPrice, orderStatus, orderProductsDescription, createdAt, updatedAt);
     

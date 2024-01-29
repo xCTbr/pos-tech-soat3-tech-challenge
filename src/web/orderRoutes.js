@@ -7,8 +7,17 @@ export default function orderRoutes(express) {
   //GET ENDPOINTS
   router.route('/').get(controller.fetchAllOrder,
     // #swagger.tags = ['Order']
-		// #swagger.description = 'Endpoint to list al
-    );
+		// #swagger.description = 'Endpoint to list all orders.'
+
+		/* #swagger.parameters['list'] = {
+			in: 'query',
+			description: 'List all orders according with filter',
+			required: false,
+			enum: ['all', 'in_progress'],
+			default: 'in_progress',
+		} */
+	);
+
   router.route('/:id').get(controller.fetchOrderById,
     // #swagger.tags = ['Order']
 		// #swagger.description = 'Endpoint to get order by ID.'

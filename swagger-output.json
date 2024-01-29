@@ -442,7 +442,21 @@
         "tags": [
           "Order"
         ],
-        "description": "",
+        "description": "Endpoint to list all orders.",
+        "parameters": [
+          {
+            "name": "list",
+            "in": "query",
+            "description": "List all orders according with filter",
+            "required": false,
+            "enum": [
+              "all",
+              "in_progress"
+            ],
+            "default": "in_progress",
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""

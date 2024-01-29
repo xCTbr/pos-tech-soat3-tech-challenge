@@ -9,11 +9,18 @@ import useCaseUpdateStatusById from '../use_cases/order/updateStatusById.js';
 import useCaseGetProductById from '../use_cases/product/findById.js';
 import { webhookURL } from '../config/webhookConfig.js';
 
+const getInProgressList = (order) => {
+	const statusDoneList = order.filter(order => order.orderStatus?.description === 'done').sort((a, b) => b.createdAt - a.createdAt);
+	const statusInProgressList = order.filter(order => order.orderStatus?.description === 'in_progress').sort((a, b) => b.createdAt - a.createdAt);
+	const statusReceivedList = order.filter(order => order.orderStatus?.description === 'received').sort((a, b) => b.createdAt - a.createdAt);
+
+	return [...statusDoneList, ...statusInProgressList, ...statusReceivedList]
+}
+
 export default function orderController() {
   
 	const addNewOrder = async (req, res, next) => {
     const { orderNumber, customer, orderProductsDescription } = req.body;
-		console.log(req.body);
 
 		// vincular automaticamente o status
 		const statusList = await useCaseStatusAll();
@@ -45,7 +52,6 @@ export default function orderController() {
 				unit_measure: 'unit'
 			}
 		});
-		console.log('lista completa dos produtos ', orderProductsList);
 
 		// persistir o pedido
 		const buildCreateBody = {
@@ -55,8 +61,6 @@ export default function orderController() {
 			initialStatus: initialStatus.id,
 			orderProductsDescription,
 		}
-		console.log('body completo ', buildCreateBody);
-		console.log('item para pagamento ', itemsList);
 
     useCaseCreate(
 		orderNumber,
@@ -84,12 +88,9 @@ export default function orderController() {
   };
 
   const fetchOrderById = (req, res, next) => {
-    //console.log('params by id-> ',req.params.id);
-    //console.log('repository -> ',dbRepository);
     useCasefindById(req.params.id)
       .then((order) => {
         if (!order) {
-          //throw new Error(`No order found with id: ${req.params.id}`);
           res.json(`No order found with id: ${req.params.id}`);
         }
         res.json(order);
@@ -103,11 +104,12 @@ export default function orderController() {
         if (!order) {
           res.json(`No order found`);
         }
-				const statusDoneList = order.filter(order => order.orderStatus?.description === 'done').sort((a, b) => b.createdAt - a.createdAt);
-				const statusInProgressList = order.filter(order => order.orderStatus?.description === 'in_progress').sort((a, b) => b.createdAt - a.createdAt);
-				const statusReceivedList = order.filter(order => order.orderStatus?.description === 'received').sort((a, b) => b.createdAt - a.createdAt);
-
-        res.json([...statusDoneList, ...statusInProgressList, ...statusReceivedList]);
+				if (req.query.list === 'in_progress') {
+					const list = getInProgressList(order);
+					res.json(list);
+				} else {
+					res.json(order);
+				}
       })
       .catch((error) => next(error));
   };
