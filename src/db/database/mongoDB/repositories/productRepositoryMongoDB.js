@@ -17,9 +17,9 @@ export default function productRepositoryMongoDB() {
 		return newProduct.save();
 	};
 
-	const findAll = (params) => ProductModel.find().populate('category');
+	const findAll = (params) => ProductModel.find();
     
-	const findById = (id) => ProductModel.findById(id).populate('category');
+	const findById = (id) => ProductModel.findById(id);
 
 	const deleteById = (id) => ProductModel.findByIdAndRemove(id);
 	

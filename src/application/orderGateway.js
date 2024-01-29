@@ -7,14 +7,12 @@ export default function orderGateway() {
 	const findAll = () => orderRepositoryMongoDB().findAll();
 	const updateById = (id, order) => orderRepositoryMongoDB().updateById(id, order);
 	const deleteById = (id) => orderRepositoryMongoDB().deleteById(id);
-	const updateStatusById = (id, orderStatus) => orderRepositoryMongoDB().updateStatusById(id, orderStatus);
 
 	return {
 		findById,
 		findAll,
 		add,
 		updateById,
-		deleteById,
-		updateStatusById	
+		deleteById		
 	}
 }
