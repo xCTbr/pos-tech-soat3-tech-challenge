@@ -37,6 +37,7 @@ ou `make update-image`
 
 a. Desenho da arquitetura
 
+   ![tech_challenge_fase2](https://github.com/xCTbr/pos-tech-soat3-tech-challenge/assets/27281151/582c5bd6-6c49-43dd-8f38-5c96c3c8caec)
 
 b. Collection:
 
