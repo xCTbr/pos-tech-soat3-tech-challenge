@@ -442,7 +442,21 @@
         "tags": [
           "Order"
         ],
-        "description": "",
+        "description": "Endpoint to list all orders.",
+        "parameters": [
+          {
+            "name": "list",
+            "in": "query",
+            "description": "List all orders according with filter",
+            "required": false,
+            "enum": [
+              "all",
+              "in_progress"
+            ],
+            "default": "in_progress",
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -729,18 +743,6 @@
           "type": "string",
           "example": "ID Customer"
         },
-        "orderProducts": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "productID": {
-                "type": "string",
-                "example": "ID product"
-              }
-            }
-          }
-        },
         "orderProductsDescription": {
           "type": "array",
           "items": {
@@ -750,21 +752,9 @@
                 "type": "string",
                 "example": "ID product"
               },
-              "productDescription": {
-                "type": "string",
-                "example": "prod a"
-              },
-              "productPrice": {
-                "type": "number",
-                "example": 2
-              },
               "productQuantity": {
                 "type": "number",
                 "example": 5
-              },
-              "productTotalPrice": {
-                "type": "number",
-                "example": 10
               }
             }
           }
@@ -781,7 +771,6 @@
       "required": [
         "orderNumber",
         "customer",
-        "orderProducts",
         "orderProductsDescription",
         "totalOrderPrice",
         "orderStatus"
@@ -792,7 +781,7 @@
       "properties": {
         "description": {
           "type": "string",
-          "example": "Waiting payment"
+          "example": "pending"
         }
       },
       "required": [

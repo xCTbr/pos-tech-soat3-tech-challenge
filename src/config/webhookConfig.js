@@ -1,3 +1,3 @@
-// token atual 7f2bc0ac-6791-46b0-8101-6ad5149322e4
-// whcli forward --token=7f2bc0ac-6791-46b0-8101-6ad5149322e4 --api-key=7f2bc0ac-6791-46b0-8101-6ad5149322e4 --target=http://localhost:3000/webhook
-export const webhookURL = 'https://webhook.site/7f2bc0ac-6791-46b0-8101-6ad5149322e4';
+// token atual 0542895c-7735-41b7-bfcb-de50fe59b2c9
+// whcli forward --token=0542895c-7735-41b7-bfcb-de50fe59b2c9 --api-key=0542895c-7735-41b7-bfcb-de50fe59b2c9 --target=http://localhost:3000/webhook
+export const webhookURL = 'https://webhook.site/0542895c-7735-41b7-bfcb-de50fe59b2c9';
