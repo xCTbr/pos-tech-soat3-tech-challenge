@@ -1,15 +1,13 @@
-export default function categories({
-	id,
-	categoryName,
-	description,
-	createdAt,
-	updatedAt
-}) {
-	return {
-		getId: () => id,
-		getCategoryName: () => categoryName,
-		getDescription: () => description,
-		getCreatedAt: () => createdAt,
-		getUpdatedAt: () => updatedAt,
-	};
-}
+export default function category(
+    categoryName,
+    description,
+    createdAt,
+    updatedAt
+  ) {
+    return {
+      getCategoryName: () => categoryName,
+      getDescription: () => description,
+      getCreatedAt: () => createdAt,
+      getUpdatedAt: () => updatedAt,
+    };
+  }

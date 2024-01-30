@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: carlostofoli/tech-challenge-fase3:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_CONNECTION_STRING
+              value: "mongodb+srv://service_user:GVnbkZ0jX7vTjVHy@cluster0.fc6vkfq.mongodb.net/?retryWrites=true&w=majority"
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"

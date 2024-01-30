@@ -4,7 +4,7 @@ const document = {
       title: 'API Sistema de pedidos',
       description: 'Pos-Tech 3SOAT'
     },
-    host: 'localhost:3000',
+    host: 'localhost:80',
     definitions: {
         Parents: {
             father: "Simon Doe",
@@ -48,16 +48,27 @@ const document = {
         AddOrder: {
             $orderNumber: "1",
             $customer: "ID Customer",
-            $orderProducts: [
-                {
-                    productID: "ID product"
-                }
-            ],
+						$orderProductsDescription: [{
+							productId: "ID product",
+							productQuantity: 5			
+						}],
             $totalOrderPrice: 10.00,
             $orderStatus: "ID Status"
         },
         AddOrderStatus:{
-            $description: "In Progress",
+            $description: "pending"
+        },
+				UpdateOrderStatus:{
+						$orderStatus: "ID new status"
+				},
+        AddPayment: {
+            $description: "Description of payment",
+            $order: "ID Order generated",
+            $status: "Pending"
+        },
+        updatePayment: {
+            $description: "Description of payment",
+            $status: "Pending"
         }
     }
   };
@@ -67,5 +78,7 @@ https://github.com/davibaltar/example-swagger-autogen/blob/master/swagger.js
 https://www.npmjs.com/package/swagger-autogen
 https://davibaltar.medium.com/documenta%C3%A7%C3%A3o-autom%C3%A1tica-de-apis-em-node-js-eb03041c643b
 */
-swaggerAutogen()('./swagger-output.json', ['./src/routes/customerRoutes.js',
-'./src/routes/categoryRoutes.js','./src/routes/productRoutes.js','./src/routes/orderRoutes.js','./src/routes/statusRoutes.js'], document);
+swaggerAutogen()('./swagger-output.json', ['./src/web/index.js'], document);
+
+/*swaggerAutogen()('./swagger-output.json', ['./src/routes/customerRoutes.js',
+'./src/routes/categoryRoutes.js','./src/routes/productRoutes.js','./src/routes/orderRoutes.js','./src/routes/statusRoutes.js'], document);*/

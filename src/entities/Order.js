@@ -1,21 +1,19 @@
-export default function order({
-	id,
-	orderNumber,
-	customer,
-	orderProducts, //array of products
-	totalOrderPrice,
-	orderStatus,
-	createdAt,
-	updatedAt
-}) {
-	return {
-		getId: () => id,
-		getOrderNumber: () => orderNumber,
-		getCustomer: () => customer,
-		getOrderProducts: () => orderProducts,
-		getTotalOrderPrice: () => totalOrderPrice,
-		getOrderStatus: () => orderStatus,
-		getCreatedAt: () => createdAt,
-		getUpdatedAt: () => updatedAt,
-	};
-}
+export default function order(
+    orderNumber,
+    customer,
+    totalOrderPrice,
+    orderStatus,
+		orderProductsDescription,
+    createdAt,
+    updatedAt,
+  ) {
+    return {
+      getOrderNumber: () => orderNumber,
+      getCustomer: () => customer,
+      getTotalOrderPrice: () => totalOrderPrice,
+      getOrderStatus: () => orderStatus,
+			getOrderProductsDescription: () => orderProductsDescription,
+      getCreatedAt: () => createdAt,
+      getUpdatedAt: () => updatedAt,
+    };
+  }

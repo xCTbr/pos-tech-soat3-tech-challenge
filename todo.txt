@@ -1,0 +1,17 @@
+- Criar api consulta cliente por cpf
+- Criar os endpoints de statusOrder -ok
+/**********************************
+Ajustar a camada aplication "gateway"-ok
+
+Passar o driver por ela injetar - ok
+
+Gateway intermediação entre driver e use_case - ok
+
+Driver intermediação entre banco e gateway - ok
+
+Gateway não pode ter connect – o use case vai chamar o gateway - ok
+
+*******************************************/
+- Api MOCK de pagamento ou web hook
+- Ao criar pedido, criar com status inicial de aguardando pagamento e depois de pago o webhoook
+vai atualizar o pedido e colocar na fila "em andamento"
