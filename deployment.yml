@@ -22,8 +22,8 @@ spec:
               value: "mongodb+srv://service_user:GVnbkZ0jX7vTjVHy@cluster0.fc6vkfq.mongodb.net/?retryWrites=true&w=majority"
           resources:
             limits:
-              cpu: "500m"  # 500 milicores
-              memory: "512Mi"  # 512 Mebibytes
+              cpu: "500m"
+              memory: "512Mi"
             requests:
-              cpu: "200m"  # 200 milicores
-              memory: "256Mi"  # 256 Mebibytes
+              cpu: "200m"
+              memory: "256Mi"
