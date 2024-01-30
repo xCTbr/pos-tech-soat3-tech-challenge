@@ -35,15 +35,15 @@ ou `make update-image`
 
 ## Tech challenge Fase 2
 
-a. Desenho da arquitetura
+### Desenho da arquitetura
 
    ![tech_challenge_fase2](https://github.com/xCTbr/pos-tech-soat3-tech-challenge/assets/27281151/582c5bd6-6c49-43dd-8f38-5c96c3c8caec)
 
-b. Collection:
+### Collection:
 
 	Swagger UI: http://localhost/docs
 
-c.  Guia completo com todas as instruções para execução do projeto e a ordem de execução das APIs, caso seja necessário.
+### Guia completo com todas as instruções para execução do projeto e a ordem de execução das APIs, caso seja necessário.
 
 #### API's:
 
@@ -54,9 +54,9 @@ Nosso banco de dados já está populado, no entanto, caso deseje criar novos reg
 - Criar produto associado à categoria
 - Criar pedido associado à cliente e produto
 
-d. Link para o vídeo
+### Link para o vídeo
 
-
+https://youtu.be/QMHumtJ6DvQ
 
 
 ## Team
