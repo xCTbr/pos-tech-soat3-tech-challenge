@@ -7,5 +7,5 @@ export default async function addPayment(data) {
 	const response = await createNewPayment(data);
 	const { qr_data } = response.data;
 	if (qr_data) getQrCodeFile(qr_data);
-	return response;
+	return response.data.qr_data;
 }

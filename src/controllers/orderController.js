@@ -10,9 +10,9 @@ import useCaseGetProductById from '../use_cases/product/findById.js';
 import { webhookURL } from '../config/webhookConfig.js';
 
 const getInProgressList = (order) => {
-	const statusDoneList = order.filter(order => order.orderStatus?.description === 'done').sort((a, b) => b.createdAt - a.createdAt);
-	const statusInProgressList = order.filter(order => order.orderStatus?.description === 'in_progress').sort((a, b) => b.createdAt - a.createdAt);
-	const statusReceivedList = order.filter(order => order.orderStatus?.description === 'received').sort((a, b) => b.createdAt - a.createdAt);
+	const statusDoneList = order.filter(order => order.orderStatus?.description === 'done').sort((a, b) => a.createdAt - b.createdAt);
+	const statusInProgressList = order.filter(order => order.orderStatus?.description === 'in_progress').sort((a, b) => a.createdAt - b.createdAt);
+	const statusReceivedList = order.filter(order => order.orderStatus?.description === 'received').sort((a, b) => a.createdAt - b.createdAt);
 
 	return [...statusDoneList, ...statusInProgressList, ...statusReceivedList]
 }
@@ -71,7 +71,7 @@ export default function orderController() {
 		Date(),
 		Date()
     )
-    .then((order) => {
+    .then(async (order) => {
 			const data = {
 				title: `Order ${orderNumber}-${customer}`,
 				description: `Purchase description ${orderNumber}`,
@@ -80,9 +80,11 @@ export default function orderController() {
 				notification_url: webhookURL,
 				total_amount: totalOrderPrice
 			};
-			addPayment(data);
+			const qrcode = await addPayment(data);
+			//TODO: atualizar o pedido com o qrcode
+			console.log(qrcode);
 	
-			res.json(order)
+			res.json({ order, qrcode });
 		})
     .catch((error) => res.json(next(`${error.message} - Order creation failed`)));
   };
@@ -143,7 +145,6 @@ export default function orderController() {
 
 		useCaseUpdateStatusById(id, orderStatus).then((message) => res.json(message)).catch((error) => next(error));
 	};
-  //console.log('Controller final',dbRepository);
   return {
 		addNewOrder,
     fetchAllOrder,
