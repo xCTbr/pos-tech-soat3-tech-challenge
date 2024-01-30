@@ -1,92 +1,82 @@
-import { status } from "../models/Status.js";
+import useCaseCreate from '../use_cases/status/add.js'
+import useCasegetAll from '../use_cases/status/getAll.js'
+import useCaseFindById from '../use_cases/status/findById.js';
+import useCasedelete from '../use_cases/status/deleteById.js'
+import useCaseUpdateById from '../use_cases/status/updateById.js';
 
-class StatusController {
-	
-	static async listStatuss(req, res) {
-		// #swagger.tags = ['Order Status']
-		// #swagger.description = 'Endpoint to list all Order Status.'
-		try {
-			const statusList = await status.find();
-			res.status(200).json(statusList);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+export default function statusController() {
+  
+	const addNewStatus = (req, res, next) => {
+		console.log('controller status');
+    //console.log('repositorio-> ',dbRepository);
+		//console.log('Request body:', req.body);
+    const {description} = req.body;
+	//console.log('reqbody',req.body);
+    useCaseCreate(
+      description,
+      Date(),
+      Date()
+    )
+    .then((status) => res.json(status))
+    .catch((error) => res.json(next(`${error.message} - Status creation failed`)));
+		/*.then((status) => {
+			return res.json('Status created successfully');
+		})
+		.catch((error) => res.json(`${error.message} - Status creation failed`));*/
+  };
 
-	static async getStatusById(req, res) {
-		// #swagger.tags = ['Order Status']
-		// #swagger.description = 'Endpoint to list all Order Status by ID.'
-		try {
-			const id = req.params.id;
-			const statusFound = await status.findById(id);
-			res.status(200).json(statusFound);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+  const fetchStatusById = (req, res, next) => {
+    //console.log('params by id-> ',req.params.id);
+    //console.log('repository -> ',dbRepository);
+    useCaseFindById(req.params.id)
+      .then((status) => {
+        if (!status) {
+          //throw new Error(`No status found with id: ${req.params.id}`);
+          res.json(`No status found with id: ${req.params.id}`);
+        }
+        res.json(status);
+      })
+      .catch((error) => next(error));
+  };
 
-	static async createStatus(req, res) {
+  const fetchAllStatus = (req, res, next) => {
+    useCasegetAll()
+      .then((status) => {
+        if (!status) {
+          //throw new Error(`No statuss found with id: ${req.params.id}`);
+          res.json(`No status found`);
+        }
+        res.json(status);
+      })
+      .catch((error) => next(error));
+  };
 
-		// #swagger.tags = ['Order Status']
-		// #swagger.description = 'Endpoint to create Order Status.'
+  const deleteStatusById = (req, res, next) => {
+    useCasedelete(req.params.id)
+      .then(() => res.json('Status sucessfully deleted!'))
+      .catch((error) => next(error));
+  };
+  
+  const updateStatusById = (req, res, next) => {
+    const {description} = req.body;
 
-		/* #swagger.parameters['createOrderStatus'] = {
-               in: 'body',
-               description: 'Information order.',
-			   required: true,
-               schema: { $ref: "#/definitions/AddOrderStatus" }
-        } */
-		try {
-			const newStatus = await status.create(req.body);
-			res.status(201).json({
-				message: 'Status created successfully',
-				status: newStatus
-			});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Status creation failed`
-			});
-		}
-	};
+    //console.log('controller update by id->',dbRepository);
+    useCaseUpdateById(
+      req.params.id,
 
-	static async updateStatus(req, res) {
-		// #swagger.tags = ['Order Status']
-		// #swagger.description = 'Endpoint to update Order Status.'
-
-		/* #swagger.parameters['createOrderStatus'] = {
-               in: 'body',
-               description: 'Information order.',
-			   required: true,
-               schema: { $ref: "#/definitions/AddOrderStatus" }
-        } */
-		try {
-			const id = req.params.id;
-			await status.findByIdAndUpdate(id, {$set: req.body});
-			res.status(200).json({message: 'Status updated successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Status update failed`
-			});
-		}
-	};
-
-	static async deleteStatus(req, res) {
-		// #swagger.tags = ['Order Status']
-		// #swagger.description = 'Endpoint to delete Order Status.'
-		try {
-			const id = req.params.id;
-			await status.findByIdAndDelete(id);
-			res.status(200).json({message: 'Status deleted successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Status delete failed`
-			});
-		}
-	};
-};
-
-export default StatusController;
+      description,
+      Date()
+    )
+      .then((message) => res.json(message))
+      .catch((error) => next(error));
+      
+  };
+  //console.log('Controller final',dbRepository);
+  return {
+	addNewStatus,
+    fetchAllStatus,
+    fetchStatusById,
+    updateStatusById,
+    deleteStatusById
+  };
+}

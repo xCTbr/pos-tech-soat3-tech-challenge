@@ -1,7 +1,7 @@
 import mongoose, { mongo } from "mongoose";
 
 async function connectDatabase() {
-  mongoose.connect(process.env.DB_CONNECTION_STRING);
+  mongoose.connect("" +process.env.DB_CONNECTION_STRING);
   return mongoose.connection;
 };
 

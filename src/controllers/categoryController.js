@@ -1,91 +1,83 @@
-import { category } from '../models/Category.js';
+import useCaseCreate from '../use_cases/category/add.js'
+import useCasegetAll from '../use_cases/category/getAll.js'
+import useCaseFindById from '../use_cases/category/findById.js';
+import useCasedelete from '../use_cases/category/deleteById.js'
+import useCaseUpdateById from '../use_cases/category/updateById.js';
 
-class CategoryController {
-	
-	static async listCategories(req, res) {
-		// #swagger.tags = ['Category']
-		// #swagger.description = 'Endpoint to list all categories.'
-		try {
-			const categoryList = await category.find();
-			res.status(200).json(categoryList);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+export default function categoryController() {
+  
+	const addNewCategory = (req, res, next) => {
+		console.log('controller category');
+    //console.log('repositorio-> ',dbRepository);
+		//console.log('Request body:', req.body);
+    const { categoryName, description } = req.body;
 
-	static async getCategoryById(req, res) {
-		// #swagger.tags = ['Category']
-		// #swagger.description = 'Endpoint to get category by ID.'
-		try {
-			const id = req.params.id;
-			const categoryFound = await category.findById(id);
-			res.status(200).json(categoryFound);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+    useCaseCreate(
+			categoryName,
+      description,
+      Date(),
+      Date()
+    )
+    .then((category) => res.json(category))
+    .catch((error) => res.json(next(`${error.message} - Category creation failed`)));
+		/*.then((category) => {
+			return res.json('Category created successfully');
+		})
+		.catch((error) => res.json(`${error.message} - Category creation failed`));*/
+  };
 
-	static async createCategory(req, res) {
-		// #swagger.tags = ['Category']
-		// #swagger.description = 'Endpoint to add category.'
+  const fetchCategoryById = (req, res, next) => {
+    //console.log('params by id-> ',req.params.id);
+    //console.log('repository -> ',dbRepository);
+    useCaseFindById(req.params.id)
+      .then((category) => {
+        if (!category) {
+          //throw new Error(`No category found with id: ${req.params.id}`);
+          res.json(`No category found with id: ${req.params.id}`);
+        }
+        res.json(category);
+      })
+      .catch((error) => next(error));
+  };
 
-		/* #swagger.parameters['newCategory'] = {
-               in: 'body',
-               description: 'Information category.',
-               required: true,
-               schema: { $ref: "#/definitions/AddCategory" }
-        } */
-		try {
-			const newCategory = await category.create(req.body);
-			res.status(201).json({
-				message: 'Category created successfully',
-				category: newCategory
-			});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Category creation failed`
-			});
-		}
-	};
+  const fetchAllCategory = (req, res, next) => {
+    useCasegetAll()
+      .then((category) => {
+        if (!category) {
+          //throw new Error(`No categorys found with id: ${req.params.id}`);
+          res.json(`No category found`);
+        }
+        res.json(category);
+      })
+      .catch((error) => next(error));
+  };
 
-	static async updateCategory(req, res) {
-		// #swagger.tags = ['Category']
-		// #swagger.description = 'Endpoint to update customer by ID.'
+  const deleteCategoryById = (req, res, next) => {
+    useCasedelete(req.params.id)
+      .then(() => res.json('Category sucessfully deleted!'))
+      .catch((error) => next(error));
+  };
+  
+  const updateCategoryById = (req, res, next) => {
+    const {categoryName, description} = req.body;
 
-		/* #swagger.parameters['updateCategory'] = {
-               in: 'body',
-               description: 'Information do category.',
-               required: true,
-               schema: { $ref: "#/definitions/AddCategory" }
-        } */
-		try {
-			const id = req.params.id;
-			await category.findByIdAndUpdate(id, req.body);
-			res.status(200).json({message: 'Category updated successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Category update failed`
-			});
-		}
-	};
-
-	static async deleteCategory(req, res) {
-		// #swagger.tags = ['Category']
-		// #swagger.description = 'Endpoint to delete category by ID.'
-		try {
-			const id = req.params.id;
-			await category.findByIdAndDelete(id);
-			res.status(200).json({message: 'Category deleted successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Category delete failed`
-			});
-		}
-	};
-};
-
-export default CategoryController;
+    //console.log('controller update by id->',dbRepository);
+    useCaseUpdateById(
+      req.params.id,
+      categoryName,
+      description,
+      Date()
+    )
+      .then((message) => res.json(message))
+      .catch((error) => next(error));
+      
+  };
+  //console.log('Controller final',dbRepository);
+  return {
+		addNewCategory,
+    fetchAllCategory,
+    fetchCategoryById,
+    updateCategoryById,
+    deleteCategoryById
+  };
+}

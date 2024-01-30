@@ -1,108 +1,114 @@
-import { customer } from '../models/Customer.js';
+import useCaseCreate from '../use_cases/customer/add.js'
+import useCaseGetAll from '../use_cases/customer/getAll.js'
+import useCasefindById from '../use_cases/customer/findById.js';
+import useCasedelete from '../use_cases/customer/deleteById.js'
+import useCaseupdateById from '../use_cases/customer/updateById.js';
+import useCasefindByCPF from '../use_cases/customer/findByCPF.js'
 
-class CustomerController {
-	
-	static async listCustomers(req, res) {
+export default function customerController() {
+  
+//  const dbRepository = customerRepository(customerRepositoryMongoDB());
 
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to get all customers.'
+console.log('controller customer')
+  
+  const fetchAllCustomer = (req, res, next) => {
+    useCaseGetAll()
+      .then((customer) => {
+        if (!customer) {
+          //throw new Error(`No customers found with id: ${req.params.id}`);
+          res.json(`No customer found`);
+        }
+        res.json(customer);
+      })
+      .catch((error) => next(error));
+  };
 
-		try {
-			const customerList = await customer.find();
-			res.status(200).json(customerList);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
 
-	static async getCustomerById(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to get customer by ID.'
-		try {
-			const id = req.params.id;
-			const customerFound = await customer.findById(id);
-			res.status(200).json(customerFound);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+	const addNewCustomer = (req, res, next) => {
+		console.log('controler customer');
+    //console.log('repositorio-> ',dbRepository);
+		//console.log('Request body:', req.body);
+    const { name, cpf, email, phone, skype } = req.body;
 
-	static async getCustomerByCpf(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to get customer by CPF.'
-		try {
-			const CPF = req.query.CPF;
-			const customerCpfFound = await customer.find({'cpf':CPF},{});
-			res.status(200).json(customerCpfFound);
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Request failed`
-			});
-		}
-	};
+    useCaseCreate(
+			name,
+      cpf,
+      email,
+      phone,
+      Date(),
+      Date()
+    )
+    .then((customer) => res.json(customer))
+    .catch((error) => res.json(next(`${error.message} - Customer creation failed`)));
+		/*.then((customer) => {
+			return res.json('Customer created successfully');
+		})
+		.catch((error) => res.json(`${error.message} - Customer creation failed`));*/
+  };
 
-	static async createCustomer(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to add a customer.'
+  const fetchCustomerById = (req, res, next) => {
+    //console.log('params by id-> ',req.params.id);
+    //console.log('repository -> ',dbRepository);
+    useCasefindById(req.params.id)
+      .then((customer) => {
+        if (!customer) {
+          //throw new Error(`No customer found with id: ${req.params.id}`);
+          res.json(`No customer found with id: ${req.params.id}`);
+        }
+        res.json(customer);
+      })
+      .catch((error) => next(error));
+  };
 
-		/* #swagger.parameters['newCustomer'] = {
-               in: 'body',
-               description: 'Information customer.',
-               required: true,
-               schema: { $ref: "#/definitions/AddCustomer" }
-        } */
-		//schema: { $ref: "#/definitions/AddCustomer" }
-		try {
-			const newCustomer = await customer.create(req.body);
-			res.status(201).json({
-				message: 'Customer created successfully',
-				customer: newCustomer
-			});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Customer creation failed`
-			});
-		}
-	};
+  const fetchCustomerByCPF = (req, res, next) => {
+    //console.log('params by id-> ',req.body);
+    //return res.json('fdsfa');
+    //console.log('repository -> ',dbRepository);
+    //const cpf = req.query.cpf;
+    //req.params.cpf
+    console.log('cpf----->',req.params.cpf)
+    useCasefindByCPF(req.params.cpf)
+      .then((customer) => {
+        if (!customer) {
+          //throw new Error(`No customer found with id: ${req.params.id}`);
+          res.json(`No customer found with cpf: ${req.params.cpf}`);
+        }
+        res.json(customer);
+      })
+      .catch((error) => next(res.json(error)));
+  };
 
-	static async updateCustomer(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to update customer by ID.'
 
-		/* #swagger.parameters['updateCustomer'] = {
-               in: 'body',
-               description: 'Information customer.',
-			   required: true,
-               schema: { $ref: "#/definitions/AddCustomer" }
-        } */
-		try {
-			const id = req.params.id;
-			await customer.findByIdAndUpdate(id, {$set: req.body});
-			res.status(200).json({message: 'Customer updated successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Customer update failed`
-			});
-		}
-	};
+  const deleteCustomerById = (req, res, next) => {
+    useCasedelete(req.params.id)
+      .then(() => res.json('Customer sucessfully deleted!'))
+      .catch((error) => next(error));
+  };
+  
+  const updateCustomerById = (req, res, next) => {
+    const {name, cpf, email, phone, skype } = req.body;
 
-	static async deleteCustomer(req, res) {
-		// #swagger.tags = ['Customer']
-		// #swagger.description = 'Endpoint to delete customer by ID.'
-		try {
-			const id = req.params.id;
-			await customer.findByIdAndDelete(id);
-			res.status(200).json({message: 'Customer deleted successfully'});
-		} catch (error) {
-			res.status(500).json({
-				message: `${error.message} - Customer delete failed`
-			});
-		}
-	};
-};
-
-export default CustomerController;
+    //console.log('controller update by id->',dbRepository);
+    useCaseupdateById(
+      req.params.id,
+      name,
+      cpf,
+      email,
+      phone,
+			skype,
+      Date()
+    )
+      .then((message) => res.json(message))
+      .catch((error) => next(error));
+      
+  };
+  //console.log('Controller final',dbRepository);
+  return {
+		addNewCustomer,
+    fetchAllCustomer,
+    fetchCustomerById,
+    updateCustomerById,
+    deleteCustomerById,
+    fetchCustomerByCPF
+  };
+}

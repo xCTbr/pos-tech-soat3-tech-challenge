@@ -1,0 +1,843 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Sistema de pedidos",
+    "description": "Pos-Tech 3SOAT",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/customer/{cpf}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get customer by CPF.",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/customer/": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to get all customers.",
+        "responses": {
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Customers not found."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to add a customer.",
+        "parameters": [
+          {
+            "name": "newCustomer",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/customer/{id}": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateCustomer",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCustomer"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer"
+        ],
+        "description": "Endpoint to delete customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/category/": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to list all categories.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to add category.",
+        "parameters": [
+          {
+            "name": "newCategory",
+            "in": "body",
+            "description": "Information category.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to get category by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateCategory",
+            "in": "body",
+            "description": "Information do category.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCategory"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Endpoint to delete category by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/product/": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get all products.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to add product.",
+        "parameters": [
+          {
+            "name": "newProduct",
+            "in": "body",
+            "description": "Information product.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to get product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to update product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateProduct",
+            "in": "body",
+            "description": "Information customer.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddProduct"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Endpoint to delete product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/status/": {
+      "get": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to list all categories.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to add status.",
+        "parameters": [
+          {
+            "name": "newStatus",
+            "in": "body",
+            "description": "Information status.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrderStatus"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/status/{id}": {
+      "get": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to get status by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to update customer by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateStatus",
+            "in": "body",
+            "description": "Information do status.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrderStatus"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Status Order"
+        ],
+        "description": "Endpoint to delete status by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/order/": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to list all orders.",
+        "parameters": [
+          {
+            "name": "list",
+            "in": "query",
+            "description": "List all orders according with filter",
+            "required": false,
+            "enum": [
+              "all",
+              "in_progress"
+            ],
+            "default": "in_progress",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to create a order.",
+        "parameters": [
+          {
+            "name": "createOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrder"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/order/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to get order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to update order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddOrder"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to delete order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/order/statusOrder/{id}": {
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint to update status order by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateOrder",
+            "in": "body",
+            "description": "Information order.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateOrderStatus"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/webhook/": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "description": "Endpoint used to webhook payment automation.",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Parents": {
+      "type": "object",
+      "properties": {
+        "father": {
+          "type": "string",
+          "example": "Simon Doe"
+        },
+        "mother": {
+          "type": "string",
+          "example": "Marie Doe"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "age": {
+          "type": "number",
+          "example": 29
+        },
+        "parents": {
+          "$ref": "#/definitions/Parents"
+        },
+        "diplomas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "school": {
+                "type": "string",
+                "example": "XYZ University"
+              },
+              "year": {
+                "type": "number",
+                "example": 2020
+              },
+              "completed": {
+                "type": "boolean",
+                "example": true
+              },
+              "internship": {
+                "type": "object",
+                "properties": {
+                  "hours": {
+                    "type": "number",
+                    "example": 290
+                  },
+                  "location": {
+                    "type": "string",
+                    "example": "XYZ Company"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddCustomer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "cpf": {
+          "type": "string",
+          "example": "123.456.789-x"
+        },
+        "email": {
+          "type": "string",
+          "example": "jhon@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "55119978654321"
+        }
+      },
+      "required": [
+        "name",
+        "cpf",
+        "email",
+        "phone"
+      ]
+    },
+    "AddCategory": {
+      "type": "object",
+      "properties": {
+        "categoryName": {
+          "type": "string",
+          "example": "Category A"
+        },
+        "description": {
+          "type": "string",
+          "example": "Category description"
+        }
+      },
+      "required": [
+        "categoryName",
+        "description"
+      ]
+    },
+    "AddProduct": {
+      "type": "object",
+      "properties": {
+        "productName": {
+          "type": "string",
+          "example": "Product A"
+        },
+        "category": {
+          "type": "string",
+          "example": "ID Category"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 10
+        },
+        "price": {
+          "type": "number",
+          "example": 10
+        }
+      },
+      "required": [
+        "productName",
+        "category",
+        "quantity",
+        "price"
+      ]
+    },
+    "AddOrder": {
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string",
+          "example": "1"
+        },
+        "customer": {
+          "type": "string",
+          "example": "ID Customer"
+        },
+        "orderProductsDescription": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": {
+                "type": "string",
+                "example": "ID product"
+              },
+              "productQuantity": {
+                "type": "number",
+                "example": 5
+              }
+            }
+          }
+        },
+        "totalOrderPrice": {
+          "type": "number",
+          "example": 10
+        },
+        "orderStatus": {
+          "type": "string",
+          "example": "ID Status"
+        }
+      },
+      "required": [
+        "orderNumber",
+        "customer",
+        "orderProductsDescription",
+        "totalOrderPrice",
+        "orderStatus"
+      ]
+    },
+    "AddOrderStatus": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": "pending"
+        }
+      },
+      "required": [
+        "description"
+      ]
+    },
+    "UpdateOrderStatus": {
+      "type": "object",
+      "properties": {
+        "orderStatus": {
+          "type": "string",
+          "example": "ID new status"
+        }
+      },
+      "required": [
+        "orderStatus"
+      ]
+    },
+    "AddPayment": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": "Description of payment"
+        },
+        "order": {
+          "type": "string",
+          "example": "ID Order generated"
+        },
+        "status": {
+          "type": "string",
+          "example": "Pending"
+        }
+      },
+      "required": [
+        "description",
+        "order",
+        "status"
+      ]
+    },
+    "updatePayment": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "example": "Description of payment"
+        },
+        "status": {
+          "type": "string",
+          "example": "Pending"
+        }
+      },
+      "required": [
+        "description",
+        "status"
+      ]
+    }
+  }
+}
