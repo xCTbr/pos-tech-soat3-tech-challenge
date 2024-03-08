@@ -8,8 +8,6 @@ export default function categoryController() {
   
 	const addNewCategory = (req, res, next) => {
 		console.log('controller category');
-    //console.log('repositorio-> ',dbRepository);
-		//console.log('Request body:', req.body);
     const { categoryName, description } = req.body;
 
     useCaseCreate(
@@ -20,19 +18,12 @@ export default function categoryController() {
     )
     .then((category) => res.json(category))
     .catch((error) => res.json(next(`${error.message} - Category creation failed`)));
-		/*.then((category) => {
-			return res.json('Category created successfully');
-		})
-		.catch((error) => res.json(`${error.message} - Category creation failed`));*/
   };
 
   const fetchCategoryById = (req, res, next) => {
-    //console.log('params by id-> ',req.params.id);
-    //console.log('repository -> ',dbRepository);
     useCaseFindById(req.params.id)
       .then((category) => {
         if (!category) {
-          //throw new Error(`No category found with id: ${req.params.id}`);
           res.json(`No category found with id: ${req.params.id}`);
         }
         res.json(category);
@@ -44,7 +35,6 @@ export default function categoryController() {
     useCasegetAll()
       .then((category) => {
         if (!category) {
-          //throw new Error(`No categorys found with id: ${req.params.id}`);
           res.json(`No category found`);
         }
         res.json(category);
@@ -61,7 +51,7 @@ export default function categoryController() {
   const updateCategoryById = (req, res, next) => {
     const {categoryName, description} = req.body;
 
-    //console.log('controller update by id->',dbRepository);
+    // console.log('controller update by id->',dbRepository);
     useCaseUpdateById(
       req.params.id,
       categoryName,

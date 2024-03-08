@@ -44,18 +44,16 @@ export default function categoryRepositoryMongoDB() {
 	};
 	
 	const updateById = (id, categoryEntity) => {
-		const updatedCategory = {
-			categoryName: categoryEntity.getCategoryName(),
-			description: categoryEntity.getDescription(),
-			updatedAt: new Date()
-		};
-	
-		return CategoryModel.findOneAndUpdate(
-		  { _id: id },
-		  { $set: updatedCategory },
-		  { new: true }
-		);
-	  };
+		const categoryName = categoryEntity.getCategoryName();
+		const description = categoryEntity.getDescription();
+		return new Promise((resolve, reject) => {
+			const update = "UPDATE categories SET categoryName=?, catDescription=? WHERE id = ?";
+			db.query(update, [categoryName, description, id], (error, result) => {
+				if(error) return reject(error);
+        return resolve(result);
+			});
+		});
+	};
 
 	return {
 		findById,
