@@ -1,11 +1,9 @@
 import CategoryModel from "../models/category.js";
+import db from '../../../../config/dbConnectMysql.js';
 
 export default function categoryRepositoryMongoDB() {
 
 	const add = async (categoryEntity) => {
-	
-		console.log('category repository');
-		
 		const newCategory = await CategoryModel({
 			categoryName: categoryEntity.getCategoryName(),
 			description: categoryEntity.getDescription(),
@@ -15,11 +13,35 @@ export default function categoryRepositoryMongoDB() {
 		return newCategory.save();
 	};
 
-	const findAll = (params) => CategoryModel.find();
+	const findAll = async (params) => {
+		return new Promise((resolve, reject) => {
+			const select = "SELECT * FROM categories";
+			db.query(select, (error, result) => {
+				if(error) return reject(error);
+        return resolve(result);
+			});
+		});
+	};
     
-	const findById = (id) => CategoryModel.findById(id);
+	const findById = (id) => {
+		return new Promise((resolve, reject) => {
+			const select = "SELECT * FROM categories WHERE id = ?";
+			db.query(select, [id], (error, result) => {
+				if(error) return reject(error);
+        return resolve(result);
+			});
+		});
+	};
 
-	const deleteById = (id) => CategoryModel.findByIdAndRemove(id);
+	const deleteById = (id) => {
+		return new Promise((resolve, reject) => {
+			const select = "DELETE FROM categories WHERE id = ?";
+			db.query(select, [id], (error, result) => {
+				if(error) return reject(error);
+        return resolve(result);
+			});
+		});
+	};
 	
 	const updateById = (id, categoryEntity) => {
 		const updatedCategory = {
