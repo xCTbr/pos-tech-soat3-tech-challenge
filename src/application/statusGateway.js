@@ -1,12 +1,12 @@
-import statusRepositoryMongoDB from "../db/database/mongoDB/repositories/statusRepositoryMongoDB.js";
+import statusRepositoryMySqlDB from "../db/database/mySql/repositories/statusRepositoryMySqlDB.js";
 
 export default function statusGateway() {
     
-	const findById = (id) => statusRepositoryMongoDB().findById(id);
-	const add = (status) => statusRepositoryMongoDB().add(status);
-	const findAll = () => statusRepositoryMongoDB().findAll();
-	const updateById = (id, status) => statusRepositoryMongoDB().updateById(id, status);
-	const deleteById = (id) => statusRepositoryMongoDB().deleteById(id);
+	const findById = (id) => statusRepositoryMySqlDB().findById(id);
+	const add = (status) => statusRepositoryMySqlDB().add(status);
+	const findAll = () => statusRepositoryMySqlDB().findAll();
+	const updateById = (id, status) => statusRepositoryMySqlDB().updateById(id, status);
+	const deleteById = (id) => statusRepositoryMySqlDB().deleteById(id);
 
 	return {
 		findById,

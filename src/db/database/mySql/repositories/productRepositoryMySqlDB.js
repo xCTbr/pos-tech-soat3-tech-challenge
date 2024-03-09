@@ -1,9 +1,8 @@
 import db from '../../../../config/dbConnectMysql.js';
 
-export default function categoryRepositoryMySqlDB() {
+export default function productRepositoryMySqlDB() {
 
-	
-	const add = async (categoryEntity) => {
+	const add = async (productEntity) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
 			db.beginTransaction((beginError) => {
@@ -11,8 +10,8 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const insertQuery = "INSERT INTO categories (categoryName, description, createdAt) VALUES (?, ?, CURRENT_TIMESTAMP)";
-				db.query(insertQuery, [categoryEntity.getCategoryName(), categoryEntity.getDescription()], (error, result) => {
+				const insertQuery = "INSERT INTO product (productName, category_id, quantity, price, createdAt) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+				db.query(insertQuery, [productEntity.getProductName(), productEntity.getCategory(),productEntity.getQuantity(),productEntity.getPrice()], (error, result) => {
 					if (error) {
 						// Rollback the transaction if there is an error
 						return db.rollback(() => reject(error));
@@ -27,16 +26,18 @@ export default function categoryRepositoryMySqlDB() {
 	
 	
 						const insertId = result.insertId;
-						const nameCategory = categoryEntity.getCategoryName();
-						const description = categoryEntity.getDescription();
-						return resolve({ "Category added ": insertId, "Category ": nameCategory, "Description": description });
+						const product = productEntity.getProductName();
+						const category = productEntity.getCategory();
+						const quantity = productEntity.getQuantity();
+						const price = productEntity.getPrice();
+						return resolve({ "Product added ": insertId, "Product ": product, "Quantity": quantity, "Price": price, "Category ID": category });
 					});
 				});
 			});
 		});
 	};
-	
-	
+
+    
 	const findAll = async (params) => {
 		return new Promise((resolve, reject) => {
 
@@ -46,7 +47,7 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const select = "SELECT * FROM categories";
+				const select = "SELECT * FROM product";
 				db.query(select, (queryError, result) => {
 					if (queryError) {
 						// Rollback the transaction if there is an error
@@ -67,8 +68,8 @@ export default function categoryRepositoryMySqlDB() {
 			});
 		});
 	};
-    
-	
+
+
 	const findById = (id) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
@@ -77,7 +78,7 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const select = "SELECT * FROM categories WHERE id = ?";
+				const select = "SELECT * FROM product WHERE id = ?";
 				db.query(select, [id], (queryError, result) => {
 					if (queryError) {
 						// Rollback the transaction if there is an error
@@ -98,9 +99,8 @@ export default function categoryRepositoryMySqlDB() {
 			});
 		});
 	};
-	
 
-	
+
 	const deleteById = (id) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
@@ -109,7 +109,7 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const select = "DELETE FROM categories WHERE id = ?";
+				const select = "DELETE FROM product WHERE id = ?";
 				db.query(select, [id], (queryError, result) => {
 					if (queryError) {
 						// Rollback the transaction if there is an error
@@ -129,31 +129,8 @@ export default function categoryRepositoryMySqlDB() {
 			});
 		});
 	};
-	
-	/*const updateById = (id, categoryEntity) => {
-		return new Promise((resolve, reject) => {
-			
-			const updateQuery = "UPDATE categories SET description=?, categoryName=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
-			db.query(updateQuery, [categoryEntity.getCategoryName(), categoryEntity.getDescription(), id], (error, result) => {
-				if (error) {
-					return reject(error);
-				}
-				
-				const nameCategory = categoryEntity.getCategoryName();
-				const description = categoryEntity.getDescription();
-				const rowUpdate = result.affectedRows;
-				var retorno = "Category updated";
-				if(rowUpdate == 0){
-					
-					retorno ="Category not found";
-					return resolve({ retorno, rowUpdate});
-				}
-				return resolve({ "response":retorno, rowUpdate,"Category ":nameCategory,"Description":description});
-				//return resolve(result);
-			});
-		});
-	};*/
-	const updateById = (id, categoryEntity) => {
+
+	  const updateById = (id, productEntity) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
 			db.beginTransaction((beginError) => {
@@ -161,8 +138,8 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const updateQuery = "UPDATE categories SET description=?, categoryName=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
-				db.query(updateQuery, [categoryEntity.getCategoryName(), categoryEntity.getDescription(), id], (error, result) => {
+				const updateQuery = "UPDATE product SET productName=?, category_id=?, quantity=?, price=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
+				db.query(updateQuery, [productEntity.getProductName(), productEntity.getCategory(), productEntity.getQuantity(), productEntity.getPrice(), id], (error, result) => {
 					if (error) {
 						// Rollback the transaction if there is an error
 						return db.rollback(() => reject(error));
@@ -175,23 +152,24 @@ export default function categoryRepositoryMySqlDB() {
 							return db.rollback(() => reject(commitError));
 						}
 	
-						const nameCategory = categoryEntity.getCategoryName();
-						const description = categoryEntity.getDescription();
+						const nameProduct = productEntity.getProductName();
+						const category = productEntity.getCategory();
+						const quantity = productEntity.getQuantity();
+						const price = productEntity.getPrice();
 						const rowUpdate = result.affectedRows;
 						let retorno = "Category updated";
 	
 						if (rowUpdate === 0) {
-							retorno = "Category not found";
+							retorno = "Product not found";
 							return resolve({ retorno, rowUpdate });
 						}
 	
-						return resolve({ response: retorno, rowUpdate, Category: nameCategory, Description: description });
+						return resolve({ response: retorno, rowUpdate, "Product ": nameProduct, "Quantity": quantity, "Price": price, "Category ID": category });
 					});
 				});
 			});
 		});
 	};
-	
 
 	return {
 		findById,

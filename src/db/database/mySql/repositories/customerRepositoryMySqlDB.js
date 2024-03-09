@@ -1,9 +1,7 @@
 import db from '../../../../config/dbConnectMysql.js';
+export default function customerRepositoryMySqlDB() {
 
-export default function categoryRepositoryMySqlDB() {
-
-	
-	const add = async (categoryEntity) => {
+	const add = async (customerEntity) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
 			db.beginTransaction((beginError) => {
@@ -11,8 +9,8 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const insertQuery = "INSERT INTO categories (categoryName, description, createdAt) VALUES (?, ?, CURRENT_TIMESTAMP)";
-				db.query(insertQuery, [categoryEntity.getCategoryName(), categoryEntity.getDescription()], (error, result) => {
+				const insertQuery = "INSERT INTO customers (name, cpf, email, phone, createdAt) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+				db.query(insertQuery, [customerEntity.getName(), customerEntity.getCpf(), customerEntity.getEmail(), customerEntity.getPhone()], (error, result) => {
 					if (error) {
 						// Rollback the transaction if there is an error
 						return db.rollback(() => reject(error));
@@ -27,16 +25,17 @@ export default function categoryRepositoryMySqlDB() {
 	
 	
 						const insertId = result.insertId;
-						const nameCategory = categoryEntity.getCategoryName();
-						const description = categoryEntity.getDescription();
-						return resolve({ "Category added ": insertId, "Category ": nameCategory, "Description": description });
+						const nameCustomer = customerEntity.getName();
+						const cpf = customerEntity.getCpf();
+						const email = customerEntity.getEmail();
+						const phone = customerEntity.getPhone();
+						return resolve({ "Customer added ": insertId, "Name ": nameCustomer, "CPF": cpf, "Email": email, "Phone": phone });
 					});
 				});
 			});
 		});
 	};
-	
-	
+
 	const findAll = async (params) => {
 		return new Promise((resolve, reject) => {
 
@@ -46,7 +45,7 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const select = "SELECT * FROM categories";
+				const select = "SELECT * FROM customers";
 				db.query(select, (queryError, result) => {
 					if (queryError) {
 						// Rollback the transaction if there is an error
@@ -68,7 +67,6 @@ export default function categoryRepositoryMySqlDB() {
 		});
 	};
     
-	
 	const findById = (id) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
@@ -77,7 +75,7 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const select = "SELECT * FROM categories WHERE id = ?";
+				const select = "SELECT * FROM customers WHERE id = ?";
 				db.query(select, [id], (queryError, result) => {
 					if (queryError) {
 						// Rollback the transaction if there is an error
@@ -100,7 +98,37 @@ export default function categoryRepositoryMySqlDB() {
 	};
 	
 
+	const findByCPF = (cpf) => {
+		return new Promise((resolve, reject) => {
+			// Begin transaction
+			db.beginTransaction((beginError) => {
+				if (beginError) {
+					return reject(beginError);
+				}
 	
+				const select = "SELECT * FROM customers WHERE cpf = ?";
+				db.query(select, [cpf], (queryError, result) => {
+					if (queryError) {
+						// Rollback the transaction if there is an error
+						return db.rollback(() => reject(queryError));
+					}
+	
+					// Commit the transaction and close the connection
+					db.commit((commitError) => {
+						if (commitError) {
+							// Rollback the transaction if there is an error during commit
+							return db.rollback(() => reject(commitError));
+						}
+	
+						// Resolve with the query result
+						resolve(result);
+					});
+				});
+			});
+		});
+	};
+
+
 	const deleteById = (id) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
@@ -109,7 +137,7 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const select = "DELETE FROM categories WHERE id = ?";
+				const select = "DELETE FROM customers WHERE id = ?";
 				db.query(select, [id], (queryError, result) => {
 					if (queryError) {
 						// Rollback the transaction if there is an error
@@ -129,31 +157,9 @@ export default function categoryRepositoryMySqlDB() {
 			});
 		});
 	};
-	
-	/*const updateById = (id, categoryEntity) => {
-		return new Promise((resolve, reject) => {
-			
-			const updateQuery = "UPDATE categories SET description=?, categoryName=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
-			db.query(updateQuery, [categoryEntity.getCategoryName(), categoryEntity.getDescription(), id], (error, result) => {
-				if (error) {
-					return reject(error);
-				}
-				
-				const nameCategory = categoryEntity.getCategoryName();
-				const description = categoryEntity.getDescription();
-				const rowUpdate = result.affectedRows;
-				var retorno = "Category updated";
-				if(rowUpdate == 0){
-					
-					retorno ="Category not found";
-					return resolve({ retorno, rowUpdate});
-				}
-				return resolve({ "response":retorno, rowUpdate,"Category ":nameCategory,"Description":description});
-				//return resolve(result);
-			});
-		});
-	};*/
-	const updateById = (id, categoryEntity) => {
+
+
+	  const updateById = (id, customerEntity) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
 			db.beginTransaction((beginError) => {
@@ -161,8 +167,8 @@ export default function categoryRepositoryMySqlDB() {
 					return reject(beginError);
 				}
 	
-				const updateQuery = "UPDATE categories SET description=?, categoryName=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
-				db.query(updateQuery, [categoryEntity.getCategoryName(), categoryEntity.getDescription(), id], (error, result) => {
+				const updateQuery = "UPDATE customers SET name=?, cpf=?, email=?, phone=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
+				db.query(updateQuery, [customerEntity.getName(), customerEntity.getCpf(), customerEntity.getEmail(), customerEntity.getPhone(), id], (error, result) => {
 					if (error) {
 						// Rollback the transaction if there is an error
 						return db.rollback(() => reject(error));
@@ -175,30 +181,32 @@ export default function categoryRepositoryMySqlDB() {
 							return db.rollback(() => reject(commitError));
 						}
 	
-						const nameCategory = categoryEntity.getCategoryName();
-						const description = categoryEntity.getDescription();
+						const nameCustomer = customerEntity.getName();
+						const cpf = customerEntity.getCpf();
+						const email = customerEntity.getEmail();
+						const phone = customerEntity.getPhone();
 						const rowUpdate = result.affectedRows;
-						let retorno = "Category updated";
+						let retorno = "Customer updated";
 	
 						if (rowUpdate === 0) {
-							retorno = "Category not found";
+							retorno = "Customer not found";
 							return resolve({ retorno, rowUpdate });
 						}
 	
-						return resolve({ response: retorno, rowUpdate, Category: nameCategory, Description: description });
+						return resolve({ response: retorno, rowUpdate, "Name ": nameCustomer, "CPF": cpf, "Email": email, "Phone": phone  });
 					});
 				});
 			});
 		});
 	};
-	
 
 	return {
 		findById,
 		findAll,
 		add,
 		updateById,
-		deleteById
+		deleteById,
+		findByCPF
 		
 	}
 }

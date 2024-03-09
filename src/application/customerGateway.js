@@ -1,13 +1,12 @@
-import customerRepositoryMongoDB from "../db/database/mongoDB/repositories/customerRepositoryMongoDB.js";
-
+import customerRepositoryMySqlDB from "../db/database/mySql/repositories/customerRepositoryMySqlDB.js";
 export default function customerGateway() {
     
-	const findById = (id) => customerRepositoryMongoDB().findById(id);
-	const findByCPF = (cpf) => customerRepositoryMongoDB().findByCPF(cpf);
-	const add = (customer) => customerRepositoryMongoDB().add(customer);
-	const findAll = () => customerRepositoryMongoDB().findAll();
-	const updateById = (id, customer) => customerRepositoryMongoDB().updateById(id, customer);
-	const deleteById = (id) => customerRepositoryMongoDB().deleteById(id);
+	const findById = (id) => customerRepositoryMySqlDB().findById(id);
+	const findByCPF = (cpf) => customerRepositoryMySqlDB().findByCPF(cpf);
+	const add = (customer) => customerRepositoryMySqlDB().add(customer);
+	const findAll = () => customerRepositoryMySqlDB().findAll();
+	const updateById = (id, customer) => customerRepositoryMySqlDB().updateById(id, customer);
+	const deleteById = (id) => customerRepositoryMySqlDB().deleteById(id);
 
 	return {
 		findById,
