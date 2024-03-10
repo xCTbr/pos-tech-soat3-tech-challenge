@@ -25,11 +25,12 @@ export default function orderController() {
 		// vincular automaticamente o status
 		const statusList = await useCaseStatusAll();
 		const initialStatus = statusList.find(status => status.description === 'pending' || status.description === 'payment_required');
-
+		
 		//build complete product
 		// atualiza produtos a partir de orderProducts
 		const orderProductsList = await Promise.all(orderProductsDescription.map(async (product) => {
 			const productDetails = await useCaseGetProductById(product.productId);
+			//console.log("detalhe produto",productDetails)
 			return {
 				productId: product.productId,
 				productPrice: productDetails.price,
@@ -52,7 +53,7 @@ export default function orderController() {
 				unit_measure: 'unit'
 			}
 		});
-
+		//console.log("item list",itemsList)
 		// persistir o pedido
 		const buildCreateBody = {
 			orderNumber,
@@ -86,7 +87,7 @@ export default function orderController() {
 	
 			res.json({ order, qrcode });
 		})
-    .catch((error) => res.json(next(`${error.message} - Order creation failed`)));
+    .catch((error) => res.json(next(`${error.message} - Order creation failed ---`)));
   };
 
   const fetchOrderById = (req, res, next) => {
