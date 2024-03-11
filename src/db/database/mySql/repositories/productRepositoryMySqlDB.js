@@ -93,7 +93,7 @@ export default function productRepositoryMySqlDB() {
 						}
 	
 						// Resolve with the query result
-						resolve(result);
+						resolve(...result);
 					});
 				});
 			});

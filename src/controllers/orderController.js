@@ -34,10 +34,10 @@ export default function orderController() {
 			//console.log("detalhe produto",productDetails)
 			return {
 				productId: product.productId,
-				productPrice: productDetails[0].price,
-				productQuantity: productDetails[0].quantity,
-				productTotalPrice: productDetails[0].price * productDetails[0].quantity,
-				productName: productDetails[0].productName
+				productPrice: productDetails.price,
+				productQuantity: productDetails.quantity,
+				productTotalPrice: productDetails.price * productDetails.quantity,
+				productName: productDetails.productName
 			}
 		}));
 
@@ -50,13 +50,13 @@ export default function orderController() {
 		const itemsList = orderProductsList.map(product => {	
 			return {
 				title: `Produto ${product.productName} ${product.productId}`,
-				unit_price: product.price,
-				quantity: product.quantity,
+				unit_price: parseFloat(product.productPrice),
+				quantity: product.productQuantity,
 				total_amount: product.productTotalPrice,
 				unit_measure: 'unit'
 			}
 		});
-		//console.log("item list",itemsList)
+		
 		// persistir o pedido
 		const buildCreateBody = {
 			orderNumber,
@@ -76,21 +76,24 @@ export default function orderController() {
 		Date()
     )
     .then(async (order) => {
+		
 			const data = {
 				title: `Order ${orderNumber}-${customer}`,
 				description: `Purchase description ${orderNumber}`,
-				external_reference: order._id, // Número interno do Pedido dentro da sua loja
+				//external_reference: order._id, // Número interno do Pedido dentro da sua loja
+				external_reference: order.orderId.toString(), // Número interno do Pedido dentro da sua loja
 				items: itemsList,
 				notification_url: webhookURL,
 				total_amount: totalOrderPrice
 			};
+			console.log("data",data)
 			const qrcode = await addPayment(data);
 			//TODO: atualizar o pedido com o qrcode
 			console.log(qrcode);
 	
 			res.json({ order, qrcode });
 		})
-    .catch((error) => res.json(next(`${error.message} - Order creation failed ---`)));
+    .catch((error) => res.json(next(`${error} - Order creation failed ---`)));
   };
 
   const fetchOrderById = (req, res, next) => {

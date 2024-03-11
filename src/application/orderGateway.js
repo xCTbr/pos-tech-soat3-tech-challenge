@@ -1,4 +1,4 @@
-import orderRepositoryMongoDB from "../db/database/mongoDB/repositories/orderRepositoryMongoDB.js";
+import orderRepositoryMongoDB from "../db/database/mySql/repositories/orderRepositoryMySqlDB.js";
 
 export default function orderGateway() {
     
