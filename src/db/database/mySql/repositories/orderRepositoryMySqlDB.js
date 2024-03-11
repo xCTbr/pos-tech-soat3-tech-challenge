@@ -1,22 +1,6 @@
 import db from '../../../../config/dbConnectMysql.js';
 
 export default function orderRepositoryMongoDB() {
-
-	/*const add = async (orderEntity) => {
-	
-		const newOrder = await OrderModel({
-			orderNumber: orderEntity.getOrderNumber(),
-			customer: orderEntity.getCustomer(),
-			// orderProducts: orderEntity.getOrderProducts(),
-			totalOrderPrice: orderEntity.getTotalOrderPrice(),
-			orderStatus: orderEntity.getOrderStatus(),
-			orderProductsDescription: orderEntity.getOrderProductsDescription(),
-			createdAt: new Date(),
-		})
-		
-		return newOrder.save();
-	};*/
-
 	const add = async (orderEntity) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
@@ -154,36 +138,7 @@ export default function orderRepositoryMongoDB() {
 			});
 		});
 	};
-	/*const updateById = (id, orderEntity) => {
-		const updatedOrder = {
-			orderNumber: orderEntity.getOrderNumber(),
-			customer: orderEntity.getCustomer(),
-			// orderProducts: orderEntity.getOrderProducts(),
-			totalOrderPrice: orderEntity.getTotalOrderPrice(),
-			orderStatus: orderEntity.getOrderStatus(),
-			orderProductsDescription: orderEntity.getOrderProductsDescription(),
-			updatedAt: new Date()
-		};
-	
-		return OrderModel.findOneAndUpdate(
-		  { _id: id },
-		  { $set: updatedOrder },
-		  { new: true }
-		);
-	};*/
 
-	/*const updateStatusById = (id, status) => {
-		const updatedOrder = {
-			orderStatus: status,
-			updatedAt: new Date()
-		};
-	
-		return OrderModel.findOneAndUpdate(
-			{ _id: id },
-			{ $set: updatedOrder },
-			{ new: true }
-		);
-	};*/
 	const updateById = (id, orderEntity) => {
 		return new Promise((resolve, reject) => {
 			// Begin transaction
@@ -192,7 +147,7 @@ export default function orderRepositoryMongoDB() {
 					return reject(beginError);
 				}
 	
-				const updateQuery = "UPDATE order SET orderNumber=?, customer_id=?, totalOrderPrice=?, orderStatus_id, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
+				const updateQuery = "UPDATE orders SET orderNumber=?, customer_id=?, totalOrderPrice=?, orderStatus_id, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
 				db.query(updateQuery, [ orderEntity.getOrderNumber(), orderEntity.getCustomer(),orderEntity.getTotalOrderPrice(), orderEntity.getOrderStatus(), id], (error, result) => {
 					if (error) {
 						// Rollback the transaction if there is an error
@@ -231,8 +186,8 @@ export default function orderRepositoryMongoDB() {
 					return reject(beginError);
 				}
 	
-				const updateQuery = "UPDATE statusorder SET status=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
-				db.query(updateQuery, [ status, id], (error, result) => {
+				const updateQuery = "UPDATE orders SET orderStatus_id=?, updatedAt=CURRENT_TIMESTAMP WHERE id=?";
+				db.query(updateQuery, [status, id], (error, result) => {
 					if (error) {
 						// Rollback the transaction if there is an error
 						return db.rollback(() => reject(error));
@@ -245,8 +200,6 @@ export default function orderRepositoryMongoDB() {
 							return db.rollback(() => reject(commitError));
 						}
 	
-						//const nameStatus = statusEntity.getStatusName();
-						const status = status;
 						const rowUpdate = result.affectedRows;
 						let retorno = "Order updated";
 	
@@ -255,7 +208,7 @@ export default function orderRepositoryMongoDB() {
 							return resolve({ retorno, rowUpdate });
 						}
 	
-						return resolve({ response: retorno, rowUpdate, "Description": description });
+						return resolve({ response: retorno, rowUpdate });
 					});
 				});
 			});

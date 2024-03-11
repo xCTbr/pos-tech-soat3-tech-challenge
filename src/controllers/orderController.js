@@ -30,13 +30,13 @@ export default function orderController() {
 		// atualiza produtos a partir de orderProducts
 		const orderProductsList = await Promise.all(orderProductsDescription.map(async (product) => {
 			const productDetails = await useCaseGetProductById(product.productId);
+			const { productQuantity } = product;
 
-			//console.log("detalhe produto",productDetails)
 			return {
 				productId: product.productId,
 				productPrice: productDetails.price,
-				productQuantity: productDetails.quantity,
-				productTotalPrice: productDetails.price * productDetails.quantity,
+				productQuantity: productQuantity,
+				productTotalPrice: productDetails.price * productQuantity,
 				productName: productDetails.productName
 			}
 		}));
@@ -46,7 +46,6 @@ export default function orderController() {
 		const totalOrderPrice = orderProductsList.reduce((total, product) => total + product.productTotalPrice, 0);
 
 		// build data payment body
-		//console.log("order Products List",orderProductsList)
 		const itemsList = orderProductsList.map(product => {	
 			return {
 				title: `Produto ${product.productName} ${product.productId}`,
@@ -86,11 +85,7 @@ export default function orderController() {
 				notification_url: webhookURL,
 				total_amount: totalOrderPrice
 			};
-			console.log("data",data)
 			const qrcode = await addPayment(data);
-			//TODO: atualizar o pedido com o qrcode
-			console.log(qrcode);
-	
 			res.json({ order, qrcode });
 		})
     .catch((error) => res.json(next(`${error} - Order creation failed ---`)));
