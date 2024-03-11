@@ -30,25 +30,28 @@ export default function orderController() {
 		// atualiza produtos a partir de orderProducts
 		const orderProductsList = await Promise.all(orderProductsDescription.map(async (product) => {
 			const productDetails = await useCaseGetProductById(product.productId);
+
 			//console.log("detalhe produto",productDetails)
 			return {
 				productId: product.productId,
-				productPrice: productDetails.price,
-				productQuantity: product.productQuantity,
-				productTotalPrice: productDetails.price * product.productQuantity,
-				productName: productDetails.productName
+				productPrice: productDetails[0].price,
+				productQuantity: productDetails[0].quantity,
+				productTotalPrice: productDetails[0].price * productDetails[0].quantity,
+				productName: productDetails[0].productName
 			}
 		}));
 
+		
 		//calcular o total do pedido
 		const totalOrderPrice = orderProductsList.reduce((total, product) => total + product.productTotalPrice, 0);
 
 		// build data payment body
+		//console.log("order Products List",orderProductsList)
 		const itemsList = orderProductsList.map(product => {	
 			return {
 				title: `Produto ${product.productName} ${product.productId}`,
-				unit_price: product.productPrice,
-				quantity: product.productQuantity,
+				unit_price: product.price,
+				quantity: product.quantity,
 				total_amount: product.productTotalPrice,
 				unit_measure: 'unit'
 			}

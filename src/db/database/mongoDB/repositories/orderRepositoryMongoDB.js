@@ -24,12 +24,12 @@ export default function orderRepositoryMongoDB() {
 				if (beginError) {
 					return reject(beginError);
 				}
-	
-				const insertQuery = "INSERT INTO orders (orderNumber, customer, totalOrderPrice, orderStatus, createdAt) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
-				const orderProducts = orderEntity.orderProductsDescription.map(product => [product.productId, product.productQuantity]);
+				//console.log("order entry",orderEntity.getCustomer())
+				const insertQuery = "INSERT INTO orders (orderNumber, customer_id, totalOrderPrice, orderStatus_id, createdAt) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+				const orderProducts = orderEntity.getOrderProductsDescription().map(product => [product.productId, product.productQuantity]);
 	
 				// Insert order details
-				db.query(insertQuery, [orderEntity.orderNumber, orderEntity.customer, orderEntity.totalOrderPrice, orderEntity.orderStatus], (error, result) => {
+				db.query(insertQuery, [orderEntity.getOrderNumber(), orderEntity.getCustomer(), orderEntity.getTotalOrderPrice(), orderEntity.getOrderStatus()], (error, result) => {
 					if (error) {
 						// Rollback the transaction if there is an error
 						return db.rollback(() => reject(error));
